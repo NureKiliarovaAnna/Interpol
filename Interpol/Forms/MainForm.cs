@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
+using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,144 +17,162 @@ namespace Interpol.Forms
         public MainForm()
         {
             InitializeComponent();
-            MessageBox.Show("Форма завантажена успішно!");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LoadDataToGrid();
             cmbCrimeType.Items.AddRange(new string[] { "Кримінальний", "Економічний", "Терористичний" });
             cmbEvidenceType.Items.AddRange(new string[] { "Фото", "Відео", "Відбитки пальців", "Документ" });
             cmbGender.Items.AddRange(new string[] { "Чоловіча", "Жіноча" });
+        }
+
+        private void LoadDataToGrid()
+        {
+            string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\ХНУРЕ\База даних\Interpol\Interpol\Interpol.accdb;";
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                string query = "SELECT * FROM QueryCriminals"; // Назва вашого запиту в Access
+                OleDbCommand command = new OleDbCommand(query, connection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                dgvCriminals.DataSource = dataTable;
+            }
         }
 
         private void btnClearFilters_Click(object sender, EventArgs e)
         {
             txtFirstName.Text = "";
             txtLastName.Text = "";
-            numAgeFrom.Value = 0;
-            numAgeTo.Value = 0;
+            txtNickname.Text = "";
             cmbGender.SelectedIndex = -1;
             txtResidence.Text = "";
             txtNationality.Text = "";
             cmbCrimeType.SelectedIndex = -1;
-            dtpCrimeDateFrom.Value = DateTime.Now;
-            dtpCrimeDateTo.Value = DateTime.Now;
             txtCrimeLocation.Text = "";
             txtWantedCountry.Text = "";
             txtCaseNumber.Text = "";
             cmbEvidenceType.SelectedIndex = -1;
-            txtEvidenceStorage.Text = "";
         }
 
-        private void SearchCriminals(string firstName, string lastName, int? ageFrom, int? ageTo,
-                             string gender, string residence, string nationality,
-                             string crimeType, DateTime? crimeDateFrom, DateTime? crimeDateTo,
-                             string crimeLocation, string wantedCountry,
-                             string caseNumber, string evidenceType, string evidenceStorage)
+        private void dgvCriminals_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            using (var connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Interpol.accdb;Persist Security Info=True"))
+            // Перевірка, чи рядок є валідним
+            if (e.RowIndex >= 0)
             {
-                connection.Open();
+                // Отримання ID злочинця або іншого ключового поля
+                string criminalId = dgvCriminals.Rows[e.RowIndex].Cells["criminal_id"].Value.ToString();
 
-                // Створення SQL-запиту
-                var query = new StringBuilder("SELECT * FROM Criminals INNER JOIN Persons ON Criminals.person_id = Persons.person_id WHERE 1=1");
-
-                // Додаємо умови для фільтрів
-                if (!string.IsNullOrEmpty(firstName))
-                    query.Append(" AND Persons.first_name LIKE @FirstName");
-                if (!string.IsNullOrEmpty(lastName))
-                    query.Append(" AND Persons.last_name LIKE @LastName");
-                if (ageFrom.HasValue)
-                    query.Append(" AND DATEDIFF('yyyy', Persons.birth_date, Date()) >= @AgeFrom");
-                if (ageTo.HasValue)
-                    query.Append(" AND DATEDIFF('yyyy', Persons.birth_date, Date()) <= @AgeTo");
-                if (!string.IsNullOrEmpty(gender))
-                    query.Append(" AND Persons.gender = @Gender");
-                if (!string.IsNullOrEmpty(residence))
-                    query.Append(" AND Persons.last_known_residence LIKE @Residence");
-                if (!string.IsNullOrEmpty(nationality))
-                    query.Append(" AND Persons.nationality LIKE @Nationality");
-                if (!string.IsNullOrEmpty(crimeType))
-                    query.Append(" AND Criminals.crime_type LIKE @CrimeType");
-                if (crimeDateFrom.HasValue)
-                    query.Append(" AND Criminals.crime_date >= @CrimeDateFrom");
-                if (crimeDateTo.HasValue)
-                    query.Append(" AND Criminals.crime_date <= @CrimeDateTo");
-                if (!string.IsNullOrEmpty(crimeLocation))
-                    query.Append(" AND Criminals.crime_location LIKE @CrimeLocation");
-                if (!string.IsNullOrEmpty(wantedCountry))
-                    query.Append(" AND Wanted_status.status_country LIKE @WantedCountry");
-                if (!string.IsNullOrEmpty(caseNumber))
-                    query.Append(" AND Court_case.case_number LIKE @CaseNumber");
-                if (!string.IsNullOrEmpty(evidenceType))
-                    query.Append(" AND Evidence.evidence_type LIKE @EvidenceType");
-                if (!string.IsNullOrEmpty(evidenceStorage))
-                    query.Append(" AND Evidence.evidence_storage_location LIKE @EvidenceStorage");
-
-                using (var command = new OleDbCommand(query.ToString(), connection))
-                {
-                    // Додаємо параметри до запиту
-                    if (!string.IsNullOrEmpty(firstName))
-                        command.Parameters.AddWithValue("@FirstName", $"%{firstName}%");
-                    if (!string.IsNullOrEmpty(lastName))
-                        command.Parameters.AddWithValue("@LastName", $"%{lastName}%");
-                    if (ageFrom.HasValue)
-                        command.Parameters.AddWithValue("@AgeFrom", ageFrom.Value);
-                    if (ageTo.HasValue)
-                        command.Parameters.AddWithValue("@AgeTo", ageTo.Value);
-                    if (!string.IsNullOrEmpty(gender))
-                        command.Parameters.AddWithValue("@Gender", gender);
-                    if (!string.IsNullOrEmpty(residence))
-                        command.Parameters.AddWithValue("@Residence", $"%{residence}%");
-                    if (!string.IsNullOrEmpty(nationality))
-                        command.Parameters.AddWithValue("@Nationality", $"%{nationality}%");
-                    if (!string.IsNullOrEmpty(crimeType))
-                        command.Parameters.AddWithValue("@CrimeType", $"%{crimeType}%");
-                    if (crimeDateFrom.HasValue)
-                        command.Parameters.AddWithValue("@CrimeDateFrom", crimeDateFrom.Value);
-                    if (crimeDateTo.HasValue)
-                        command.Parameters.AddWithValue("@CrimeDateTo", crimeDateTo.Value);
-                    if (!string.IsNullOrEmpty(crimeLocation))
-                        command.Parameters.AddWithValue("@CrimeLocation", $"%{crimeLocation}%");
-                    if (!string.IsNullOrEmpty(wantedCountry))
-                        command.Parameters.AddWithValue("@WantedCountry", $"%{wantedCountry}%");
-                    if (!string.IsNullOrEmpty(caseNumber))
-                        command.Parameters.AddWithValue("@CaseNumber", $"%{caseNumber}%");
-                    if (!string.IsNullOrEmpty(evidenceType))
-                        command.Parameters.AddWithValue("@EvidenceType", $"%{evidenceType}%");
-                    if (!string.IsNullOrEmpty(evidenceStorage))
-                        command.Parameters.AddWithValue("@EvidenceStorage", $"%{evidenceStorage}%");
-
-                    // Виконання запиту
-                    var adapter = new OleDbDataAdapter(command);
-                    var dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-
-                    // Відображення результатів у DataGridView
-                    dgvCriminals.DataSource = dataTable;
-                }
+                // Відкриття нової форми та передача ID
+                CriminalDetailsForm criminalForm = new CriminalDetailsForm(criminalId);
+                criminalForm.ShowDialog();
             }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SearchCriminals(
-                txtFirstName.Text,
-                txtLastName.Text,
-                numAgeFrom.Value > 0 ? (int?)numAgeFrom.Value : null,
-                numAgeTo.Value > 0 ? (int?)numAgeTo.Value : null,
-                cmbGender.SelectedItem?.ToString(),
-                txtResidence.Text,
-                txtNationality.Text,
-                cmbCrimeType.SelectedItem?.ToString(),
-                dtpCrimeDateFrom.Checked ? (DateTime?)dtpCrimeDateFrom.Value : null,
-                dtpCrimeDateTo.Checked ? (DateTime?)dtpCrimeDateTo.Value : null,
-                txtCrimeLocation.Text,
-                txtWantedCountry.Text,
-                txtCaseNumber.Text,
-                cmbEvidenceType.SelectedItem?.ToString(),
-                txtEvidenceStorage.Text
-            );
+            string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\ХНУРЕ\База даних\Interpol\Interpol\Interpol.accdb;";
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                // Базовий запит
+                string query = "SELECT * FROM QueryCriminals WHERE 1=1";
+
+                // Список параметрів
+                List<OleDbParameter> parameters = new List<OleDbParameter>();
+
+                // Додавання умов для кожного поля
+                if (!string.IsNullOrWhiteSpace(txtFirstName.Text))
+                {
+                    query += " AND first_name = @FirstName";
+                    parameters.Add(new OleDbParameter("@FirstName", txtFirstName.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtLastName.Text))
+                {
+                    query += " AND last_name = @LastName";
+                    parameters.Add(new OleDbParameter("@LastName", txtLastName.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtNickname.Text))
+                {
+                    query += " AND criminal_nickname = @Nickname";
+                    parameters.Add(new OleDbParameter("@Nickname", txtNickname.Text));
+                }
+
+                if (cmbGender.SelectedIndex >= 0)
+                {
+                    query += " AND gender = @Gender";
+                    parameters.Add(new OleDbParameter("@Gender", cmbGender.SelectedItem.ToString()));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtResidence.Text))
+                {
+                    query += " AND last_known_residence = @Residence";
+                    parameters.Add(new OleDbParameter("@Residence", txtResidence.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtNationality.Text))
+                {
+                    query += " AND nationality = @Nationality";
+                    parameters.Add(new OleDbParameter("@Nationality", txtNationality.Text));
+                }
+
+                if (cmbCrimeType.SelectedIndex >= 0)
+                {
+                    query += " AND crime_type = @CrimeType";
+                    parameters.Add(new OleDbParameter("@CrimeType", cmbCrimeType.SelectedItem.ToString()));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtCrimeLocation.Text))
+                {
+                    query += " AND crime_location = @CrimeLocation";
+                    parameters.Add(new OleDbParameter("@CrimeLocation", txtCrimeLocation.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtWantedCountry.Text))
+                {
+                    query += " AND wanted_country = @WantedCountry";
+                    parameters.Add(new OleDbParameter("@WantedCountry", txtWantedCountry.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtCaseNumber.Text))
+                {
+                    query += " AND case_number = @CaseNumber";
+                    parameters.Add(new OleDbParameter("@CaseNumber", txtCaseNumber.Text));
+                }
+
+                if (cmbEvidenceType.SelectedIndex >= 0)
+                {
+                    query += " AND evidence_type = @EvidenceType";
+                    parameters.Add(new OleDbParameter("@EvidenceType", cmbEvidenceType.SelectedItem.ToString()));
+                }
+
+                if (dtpBirthDate.Checked)
+                {
+                    query += " AND birth_date = @BirthDate";
+                    parameters.Add(new OleDbParameter("@BirthDate", dtpBirthDate.Value.Date));
+                }
+
+                if (dtpCrimeDate.Checked)
+                {
+                    query += " AND crime_date = @CrimeDate";
+                    parameters.Add(new OleDbParameter("@CrimeDate", dtpCrimeDate.Value.Date));
+                }
+
+                // Виконання запиту
+                OleDbCommand command = new OleDbCommand(query, connection);
+                command.Parameters.AddRange(parameters.ToArray());
+                OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+                DataTable dataTable = new DataTable();
+
+                connection.Open();
+                adapter.Fill(dataTable);
+                connection.Close();
+
+                // Оновлення DataGridView
+                dgvCriminals.DataSource = dataTable;
+            }
         }
     }
 }
