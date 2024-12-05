@@ -35,6 +35,7 @@ namespace Interpol.Forms
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.проПрограмуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelInterpol = new System.Windows.Forms.Panel();
             this.labelInterpol = new System.Windows.Forms.Label();
             this.panelMenu = new System.Windows.Forms.Panel();
@@ -45,11 +46,9 @@ namespace Interpol.Forms
             this.dtpBirthDate = new System.Windows.Forms.DateTimePicker();
             this.cmbGender = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.cmbEvidenceType = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.txtCaseNumber = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtWantedCountry = new System.Windows.Forms.TextBox();
+            this.txtStatusCountry = new System.Windows.Forms.TextBox();
             this.txtCrimeLocation = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -91,34 +90,42 @@ namespace Interpol.Forms
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1100, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1100, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 26);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.проПрограмуToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // проПрограмуToolStripMenuItem
+            // 
+            this.проПрограмуToolStripMenuItem.Name = "проПрограмуToolStripMenuItem";
+            this.проПрограмуToolStripMenuItem.Size = new System.Drawing.Size(199, 26);
+            this.проПрограмуToolStripMenuItem.Text = "Про програму..";
             // 
             // panelInterpol
             // 
-            this.panelInterpol.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelInterpol.BackColor = System.Drawing.Color.SteelBlue;
             this.panelInterpol.Controls.Add(this.labelInterpol);
             this.panelInterpol.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInterpol.Location = new System.Drawing.Point(0, 28);
+            this.panelInterpol.Location = new System.Drawing.Point(0, 30);
             this.panelInterpol.Name = "panelInterpol";
             this.panelInterpol.Size = new System.Drawing.Size(1100, 52);
             this.panelInterpol.TabIndex = 1;
@@ -127,6 +134,7 @@ namespace Interpol.Forms
             // 
             this.labelInterpol.AutoSize = true;
             this.labelInterpol.Font = new System.Drawing.Font("Montserrat", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelInterpol.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.labelInterpol.Location = new System.Drawing.Point(13, 6);
             this.labelInterpol.Name = "labelInterpol";
             this.labelInterpol.Size = new System.Drawing.Size(131, 39);
@@ -135,10 +143,9 @@ namespace Interpol.Forms
             // 
             // panelMenu
             // 
-            this.panelMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelMenu.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelMenu.Location = new System.Drawing.Point(0, 78);
+            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMenu.Location = new System.Drawing.Point(0, 82);
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(1100, 46);
             this.panelMenu.TabIndex = 2;
@@ -148,17 +155,16 @@ namespace Interpol.Forms
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.AutoScroll = true;
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Controls.Add(this.txtNickname);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.dtpCrimeDate);
             this.panel1.Controls.Add(this.dtpBirthDate);
             this.panel1.Controls.Add(this.cmbGender);
             this.panel1.Controls.Add(this.label18);
-            this.panel1.Controls.Add(this.cmbEvidenceType);
-            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.txtCaseNumber);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.txtWantedCountry);
+            this.panel1.Controls.Add(this.txtStatusCountry);
             this.panel1.Controls.Add(this.txtCrimeLocation);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label11);
@@ -189,9 +195,11 @@ namespace Interpol.Forms
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label4.Location = new System.Drawing.Point(16, 89);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 24);
+            this.label4.Size = new System.Drawing.Size(110, 24);
             this.label4.TabIndex = 33;
             this.label4.Text = "Псевдонім";
             // 
@@ -224,28 +232,13 @@ namespace Interpol.Forms
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label18.Location = new System.Drawing.Point(20, 161);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(58, 24);
+            this.label18.Size = new System.Drawing.Size(60, 24);
             this.label18.TabIndex = 29;
             this.label18.Text = "Стать";
-            // 
-            // cmbEvidenceType
-            // 
-            this.cmbEvidenceType.FormattingEnabled = true;
-            this.cmbEvidenceType.Location = new System.Drawing.Point(136, 480);
-            this.cmbEvidenceType.Name = "cmbEvidenceType";
-            this.cmbEvidenceType.Size = new System.Drawing.Size(164, 32);
-            this.cmbEvidenceType.TabIndex = 25;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(20, 483);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(110, 24);
-            this.label14.TabIndex = 24;
-            this.label14.Text = "Тип доказу";
             // 
             // txtCaseNumber
             // 
@@ -257,18 +250,19 @@ namespace Interpol.Forms
             // label13
             // 
             this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label13.Location = new System.Drawing.Point(20, 443);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(143, 24);
+            this.label13.Size = new System.Drawing.Size(144, 24);
             this.label13.TabIndex = 22;
             this.label13.Text = "Номер справи";
             // 
-            // txtWantedCountry
+            // txtStatusCountry
             // 
-            this.txtWantedCountry.Location = new System.Drawing.Point(179, 403);
-            this.txtWantedCountry.Name = "txtWantedCountry";
-            this.txtWantedCountry.Size = new System.Drawing.Size(194, 28);
-            this.txtWantedCountry.TabIndex = 15;
+            this.txtStatusCountry.Location = new System.Drawing.Point(179, 403);
+            this.txtStatusCountry.Name = "txtStatusCountry";
+            this.txtStatusCountry.Size = new System.Drawing.Size(194, 28);
+            this.txtStatusCountry.TabIndex = 15;
             // 
             // txtCrimeLocation
             // 
@@ -280,27 +274,33 @@ namespace Interpol.Forms
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label12.Location = new System.Drawing.Point(20, 404);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(153, 24);
+            this.label12.Size = new System.Drawing.Size(156, 24);
             this.label12.TabIndex = 21;
             this.label12.Text = "Країна розшуку";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label11.Location = new System.Drawing.Point(20, 364);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(144, 24);
+            this.label11.Size = new System.Drawing.Size(146, 24);
             this.label11.TabIndex = 20;
             this.label11.Text = "Місце злочину";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label8.Location = new System.Drawing.Point(20, 323);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(212, 24);
+            this.label8.Size = new System.Drawing.Size(217, 24);
             this.label8.TabIndex = 15;
             this.label8.Text = "Дата скоєння злочину";
             // 
@@ -322,18 +322,22 @@ namespace Interpol.Forms
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label7.Location = new System.Drawing.Point(16, 283);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(124, 24);
+            this.label7.Size = new System.Drawing.Size(127, 24);
             this.label7.TabIndex = 11;
             this.label7.Text = "Тип злочину";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label6.Location = new System.Drawing.Point(16, 243);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(150, 24);
+            this.label6.Size = new System.Drawing.Size(151, 24);
             this.label6.TabIndex = 10;
             this.label6.Text = "Національність";
             // 
@@ -347,14 +351,17 @@ namespace Interpol.Forms
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label5.Location = new System.Drawing.Point(16, 205);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(184, 24);
+            this.label5.Size = new System.Drawing.Size(188, 24);
             this.label5.TabIndex = 9;
             this.label5.Text = "Місце проживання";
             // 
             // txtLastName
             // 
+            this.txtLastName.Font = new System.Drawing.Font("Montserrat Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtLastName.Location = new System.Drawing.Point(122, 52);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(194, 28);
@@ -363,18 +370,22 @@ namespace Interpol.Forms
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label3.Location = new System.Drawing.Point(16, 123);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(172, 24);
+            this.label3.Size = new System.Drawing.Size(177, 24);
             this.label3.TabIndex = 3;
             this.label3.Text = "Дата народження";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Montserrat", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label2.Location = new System.Drawing.Point(16, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 24);
+            this.label2.Size = new System.Drawing.Size(102, 24);
             this.label2.TabIndex = 2;
             this.label2.Text = "Прізвище";
             // 
@@ -388,6 +399,7 @@ namespace Interpol.Forms
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(16, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 24);
@@ -397,7 +409,7 @@ namespace Interpol.Forms
             // btnClearFilters
             // 
             this.btnClearFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClearFilters.Location = new System.Drawing.Point(68, 629);
+            this.btnClearFilters.Location = new System.Drawing.Point(84, 629);
             this.btnClearFilters.Name = "btnClearFilters";
             this.btnClearFilters.Size = new System.Drawing.Size(123, 32);
             this.btnClearFilters.TabIndex = 4;
@@ -408,7 +420,7 @@ namespace Interpol.Forms
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSearch.Location = new System.Drawing.Point(230, 629);
+            this.btnSearch.Location = new System.Drawing.Point(239, 629);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(123, 32);
             this.btnSearch.TabIndex = 5;
@@ -420,6 +432,7 @@ namespace Interpol.Forms
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Montserrat SemiBold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label16.Location = new System.Drawing.Point(18, 135);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(99, 32);
@@ -430,6 +443,7 @@ namespace Interpol.Forms
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Montserrat SemiBold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label17.Location = new System.Drawing.Point(459, 135);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(237, 32);
@@ -440,6 +454,7 @@ namespace Interpol.Forms
             // 
             this.dgvCriminals.AllowUserToAddRows = false;
             this.dgvCriminals.AllowUserToDeleteRows = false;
+            this.dgvCriminals.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvCriminals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCriminals.Location = new System.Drawing.Point(465, 175);
             this.dgvCriminals.Name = "dgvCriminals";
@@ -448,6 +463,7 @@ namespace Interpol.Forms
             this.dgvCriminals.RowTemplate.Height = 24;
             this.dgvCriminals.Size = new System.Drawing.Size(623, 430);
             this.dgvCriminals.TabIndex = 8;
+            this.dgvCriminals.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCriminals_CellDoubleClick);
             // 
             // interpolDataSet
             // 
@@ -468,6 +484,7 @@ namespace Interpol.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(1100, 675);
             this.Controls.Add(this.dgvCriminals);
             this.Controls.Add(this.label17);
@@ -479,6 +496,8 @@ namespace Interpol.Forms
             this.Controls.Add(this.panelInterpol);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Montserrat Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
@@ -525,10 +544,8 @@ namespace Interpol.Forms
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtCaseNumber;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtWantedCountry;
+        private System.Windows.Forms.TextBox txtStatusCountry;
         private System.Windows.Forms.TextBox txtCrimeLocation;
-        private System.Windows.Forms.ComboBox cmbEvidenceType;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnClearFilters;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label label16;
@@ -543,5 +560,6 @@ namespace Interpol.Forms
         private System.Windows.Forms.BindingSource interpolDataSetBindingSource1;
         private TextBox txtNickname;
         private Label label4;
+        private ToolStripMenuItem проПрограмуToolStripMenuItem;
     }
 }
