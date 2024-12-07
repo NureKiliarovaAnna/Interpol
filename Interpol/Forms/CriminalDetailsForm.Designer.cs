@@ -158,10 +158,10 @@
             // 
             this.pbPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbPhoto.Enabled = false;
-            this.pbPhoto.Location = new System.Drawing.Point(566, 44);
+            this.pbPhoto.Location = new System.Drawing.Point(596, 48);
             this.pbPhoto.Name = "pbPhoto";
             this.pbPhoto.Size = new System.Drawing.Size(330, 381);
-            this.pbPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPhoto.TabIndex = 77;
             this.pbPhoto.TabStop = false;
             // 

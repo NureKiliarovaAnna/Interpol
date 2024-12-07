@@ -84,8 +84,8 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPhoto)).BeginInit();
@@ -165,14 +165,14 @@
             // 
             // txtPhotoPath
             // 
-            this.txtPhotoPath.Location = new System.Drawing.Point(636, 237);
+            this.txtPhotoPath.Location = new System.Drawing.Point(697, 237);
             this.txtPhotoPath.Name = "txtPhotoPath";
             this.txtPhotoPath.Size = new System.Drawing.Size(100, 28);
             this.txtPhotoPath.TabIndex = 120;
             // 
             // btnChoosePhoto
             // 
-            this.btnChoosePhoto.Location = new System.Drawing.Point(616, 193);
+            this.btnChoosePhoto.Location = new System.Drawing.Point(677, 193);
             this.btnChoosePhoto.Name = "btnChoosePhoto";
             this.btnChoosePhoto.Size = new System.Drawing.Size(141, 38);
             this.btnChoosePhoto.TabIndex = 119;
@@ -317,7 +317,7 @@
             // 
             this.pbPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbPhoto.Enabled = false;
-            this.pbPhoto.Location = new System.Drawing.Point(537, 37);
+            this.pbPhoto.Location = new System.Drawing.Point(599, 27);
             this.pbPhoto.Name = "pbPhoto";
             this.pbPhoto.Size = new System.Drawing.Size(299, 381);
             this.pbPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -672,33 +672,33 @@
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "Судова справа";
             // 
-            // button1
+            // btnSave
             // 
-            this.button1.Location = new System.Drawing.Point(767, 632);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(141, 34);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Зберегти";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSave.Location = new System.Drawing.Point(767, 632);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(141, 34);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "Зберегти";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // button2
+            // btnClose
             // 
-            this.button2.Location = new System.Drawing.Point(589, 632);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(141, 34);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Скасувати";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnClose.Location = new System.Drawing.Point(589, 632);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(141, 34);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Скасувати";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // EditCriminalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(975, 675);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Montserrat Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -769,8 +769,8 @@
         private System.Windows.Forms.TextBox txtCrimeLocation;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnChoosePhoto;
         private System.Windows.Forms.TextBox txtPhotoPath;
     }
