@@ -30,6 +30,7 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtPhotoPath = new System.Windows.Forms.TextBox();
             this.btnChoosePhoto = new System.Windows.Forms.Button();
             this.txtDegreeParticipation = new System.Windows.Forms.TextBox();
             this.txtInvestigationStatus = new System.Windows.Forms.TextBox();
@@ -72,12 +73,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.tabVictims = new System.Windows.Forms.TabPage();
+            this.tabWitnesses = new System.Windows.Forms.TabPage();
+            this.tabEvidence = new System.Windows.Forms.TabPage();
+            this.tabWanted = new System.Windows.Forms.TabPage();
+            this.tabWarrants = new System.Windows.Forms.TabPage();
+            this.tabCourtCase = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -85,7 +86,6 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.txtPhotoPath = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPhoto)).BeginInit();
@@ -94,12 +94,12 @@
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Controls.Add(this.tabPage8);
-            this.tabControl.Controls.Add(this.tabPage9);
-            this.tabControl.Controls.Add(this.tabPage10);
-            this.tabControl.Controls.Add(this.tabPage11);
-            this.tabControl.Controls.Add(this.tabPage12);
+            this.tabControl.Controls.Add(this.tabVictims);
+            this.tabControl.Controls.Add(this.tabWitnesses);
+            this.tabControl.Controls.Add(this.tabEvidence);
+            this.tabControl.Controls.Add(this.tabWanted);
+            this.tabControl.Controls.Add(this.tabWarrants);
+            this.tabControl.Controls.Add(this.tabCourtCase);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4);
@@ -163,9 +163,16 @@
             this.tabPage1.Text = "Загальна інформація";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // txtPhotoPath
+            // 
+            this.txtPhotoPath.Location = new System.Drawing.Point(636, 237);
+            this.txtPhotoPath.Name = "txtPhotoPath";
+            this.txtPhotoPath.Size = new System.Drawing.Size(100, 28);
+            this.txtPhotoPath.TabIndex = 120;
+            // 
             // btnChoosePhoto
             // 
-            this.btnChoosePhoto.Location = new System.Drawing.Point(598, 193);
+            this.btnChoosePhoto.Location = new System.Drawing.Point(616, 193);
             this.btnChoosePhoto.Name = "btnChoosePhoto";
             this.btnChoosePhoto.Size = new System.Drawing.Size(141, 38);
             this.btnChoosePhoto.TabIndex = 119;
@@ -175,6 +182,7 @@
             // 
             // txtDegreeParticipation
             // 
+            this.txtDegreeParticipation.HideSelection = false;
             this.txtDegreeParticipation.Location = new System.Drawing.Point(171, 832);
             this.txtDegreeParticipation.Name = "txtDegreeParticipation";
             this.txtDegreeParticipation.Size = new System.Drawing.Size(123, 28);
@@ -182,6 +190,7 @@
             // 
             // txtInvestigationStatus
             // 
+            this.txtInvestigationStatus.HideSelection = false;
             this.txtInvestigationStatus.Location = new System.Drawing.Point(242, 793);
             this.txtInvestigationStatus.Name = "txtInvestigationStatus";
             this.txtInvestigationStatus.Size = new System.Drawing.Size(147, 28);
@@ -189,6 +198,7 @@
             // 
             // txtCrimeMethod
             // 
+            this.txtCrimeMethod.HideSelection = false;
             this.txtCrimeMethod.Location = new System.Drawing.Point(183, 755);
             this.txtCrimeMethod.Name = "txtCrimeMethod";
             this.txtCrimeMethod.Size = new System.Drawing.Size(206, 28);
@@ -196,6 +206,7 @@
             // 
             // txtCrimeType
             // 
+            this.txtCrimeType.HideSelection = false;
             this.txtCrimeType.Location = new System.Drawing.Point(159, 677);
             this.txtCrimeType.Name = "txtCrimeType";
             this.txtCrimeType.Size = new System.Drawing.Size(211, 28);
@@ -203,6 +214,7 @@
             // 
             // txtCrimeDate
             // 
+            this.txtCrimeDate.HideSelection = false;
             this.txtCrimeDate.Location = new System.Drawing.Point(249, 641);
             this.txtCrimeDate.Name = "txtCrimeDate";
             this.txtCrimeDate.Size = new System.Drawing.Size(147, 28);
@@ -210,6 +222,7 @@
             // 
             // txtArticle
             // 
+            this.txtArticle.HideSelection = false;
             this.txtArticle.Location = new System.Drawing.Point(240, 601);
             this.txtArticle.Name = "txtArticle";
             this.txtArticle.Size = new System.Drawing.Size(147, 28);
@@ -272,6 +285,7 @@
             // 
             // txtCrimeLocation
             // 
+            this.txtCrimeLocation.HideSelection = false;
             this.txtCrimeLocation.Location = new System.Drawing.Point(176, 717);
             this.txtCrimeLocation.Name = "txtCrimeLocation";
             this.txtCrimeLocation.Size = new System.Drawing.Size(194, 28);
@@ -303,9 +317,9 @@
             // 
             this.pbPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbPhoto.Enabled = false;
-            this.pbPhoto.Location = new System.Drawing.Point(503, 37);
+            this.pbPhoto.Location = new System.Drawing.Point(537, 37);
             this.pbPhoto.Name = "pbPhoto";
-            this.pbPhoto.Size = new System.Drawing.Size(330, 381);
+            this.pbPhoto.Size = new System.Drawing.Size(299, 381);
             this.pbPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPhoto.TabIndex = 104;
             this.pbPhoto.TabStop = false;
@@ -313,6 +327,7 @@
             // txtDistinctiveFeatures
             // 
             this.txtDistinctiveFeatures.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.txtDistinctiveFeatures.HideSelection = false;
             this.txtDistinctiveFeatures.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.txtDistinctiveFeatures.Location = new System.Drawing.Point(189, 493);
             this.txtDistinctiveFeatures.Multiline = true;
@@ -323,6 +338,7 @@
             // 
             // txtPhone
             // 
+            this.txtPhone.HideSelection = false;
             this.txtPhone.Location = new System.Drawing.Point(142, 413);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(194, 28);
@@ -330,6 +346,7 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.HideSelection = false;
             this.txtEmail.Location = new System.Drawing.Point(157, 374);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(194, 28);
@@ -337,6 +354,7 @@
             // 
             // txtPassport
             // 
+            this.txtPassport.HideSelection = false;
             this.txtPassport.Location = new System.Drawing.Point(193, 335);
             this.txtPassport.Name = "txtPassport";
             this.txtPassport.Size = new System.Drawing.Size(194, 28);
@@ -344,6 +362,7 @@
             // 
             // txtStatus
             // 
+            this.txtStatus.HideSelection = false;
             this.txtStatus.Location = new System.Drawing.Point(101, 294);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.Size = new System.Drawing.Size(194, 28);
@@ -372,6 +391,7 @@
             // 
             // txtBirthLocation
             // 
+            this.txtBirthLocation.HideSelection = false;
             this.txtBirthLocation.Location = new System.Drawing.Point(211, 177);
             this.txtBirthLocation.Name = "txtBirthLocation";
             this.txtBirthLocation.Size = new System.Drawing.Size(194, 28);
@@ -389,6 +409,7 @@
             // 
             // txtGender
             // 
+            this.txtGender.HideSelection = false;
             this.txtGender.Location = new System.Drawing.Point(93, 102);
             this.txtGender.Name = "txtGender";
             this.txtGender.Size = new System.Drawing.Size(118, 28);
@@ -396,6 +417,7 @@
             // 
             // txtBirthDate
             // 
+            this.txtBirthDate.HideSelection = false;
             this.txtBirthDate.Location = new System.Drawing.Point(211, 140);
             this.txtBirthDate.Name = "txtBirthDate";
             this.txtBirthDate.Size = new System.Drawing.Size(128, 28);
@@ -403,6 +425,7 @@
             // 
             // txtNickname
             // 
+            this.txtNickname.HideSelection = false;
             this.txtNickname.Location = new System.Drawing.Point(139, 452);
             this.txtNickname.Name = "txtNickname";
             this.txtNickname.Size = new System.Drawing.Size(147, 28);
@@ -432,6 +455,7 @@
             // 
             // txtNationality
             // 
+            this.txtNationality.HideSelection = false;
             this.txtNationality.Location = new System.Drawing.Point(183, 255);
             this.txtNationality.Name = "txtNationality";
             this.txtNationality.Size = new System.Drawing.Size(194, 28);
@@ -450,6 +474,7 @@
             // 
             // txtResidence
             // 
+            this.txtResidence.HideSelection = false;
             this.txtResidence.Location = new System.Drawing.Point(217, 217);
             this.txtResidence.Name = "txtResidence";
             this.txtResidence.Size = new System.Drawing.Size(194, 28);
@@ -469,6 +494,7 @@
             // txtLastName
             // 
             this.txtLastName.Font = new System.Drawing.Font("Montserrat Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtLastName.HideSelection = false;
             this.txtLastName.Location = new System.Drawing.Point(133, 65);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(155, 28);
@@ -498,6 +524,7 @@
             // 
             // txtFirstName
             // 
+            this.txtFirstName.HideSelection = false;
             this.txtFirstName.Location = new System.Drawing.Point(76, 27);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(172, 28);
@@ -544,61 +571,66 @@
             this.label1.TabIndex = 78;
             this.label1.Text = "Статус";
             // 
-            // tabPage2
+            // tabVictims
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 33);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(967, 591);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Потерпілі";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabVictims.AutoScroll = true;
+            this.tabVictims.Location = new System.Drawing.Point(4, 33);
+            this.tabVictims.Margin = new System.Windows.Forms.Padding(4);
+            this.tabVictims.Name = "tabVictims";
+            this.tabVictims.Padding = new System.Windows.Forms.Padding(4);
+            this.tabVictims.Size = new System.Drawing.Size(967, 591);
+            this.tabVictims.TabIndex = 1;
+            this.tabVictims.Text = "Потерпілі";
+            this.tabVictims.UseVisualStyleBackColor = true;
             // 
-            // tabPage8
+            // tabWitnesses
             // 
-            this.tabPage8.Location = new System.Drawing.Point(4, 33);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(967, 591);
-            this.tabPage8.TabIndex = 2;
-            this.tabPage8.Text = "Свідки";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabWitnesses.AutoScroll = true;
+            this.tabWitnesses.Location = new System.Drawing.Point(4, 33);
+            this.tabWitnesses.Name = "tabWitnesses";
+            this.tabWitnesses.Size = new System.Drawing.Size(967, 591);
+            this.tabWitnesses.TabIndex = 2;
+            this.tabWitnesses.Text = "Свідки";
+            this.tabWitnesses.UseVisualStyleBackColor = true;
             // 
-            // tabPage9
+            // tabEvidence
             // 
-            this.tabPage9.Location = new System.Drawing.Point(4, 33);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(967, 591);
-            this.tabPage9.TabIndex = 3;
-            this.tabPage9.Text = "Докази";
-            this.tabPage9.UseVisualStyleBackColor = true;
+            this.tabEvidence.AutoScroll = true;
+            this.tabEvidence.Location = new System.Drawing.Point(4, 33);
+            this.tabEvidence.Name = "tabEvidence";
+            this.tabEvidence.Size = new System.Drawing.Size(967, 591);
+            this.tabEvidence.TabIndex = 3;
+            this.tabEvidence.Text = "Докази";
+            this.tabEvidence.UseVisualStyleBackColor = true;
             // 
-            // tabPage10
+            // tabWanted
             // 
-            this.tabPage10.Location = new System.Drawing.Point(4, 33);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(967, 591);
-            this.tabPage10.TabIndex = 4;
-            this.tabPage10.Text = "Розшук";
-            this.tabPage10.UseVisualStyleBackColor = true;
+            this.tabWanted.AutoScroll = true;
+            this.tabWanted.Location = new System.Drawing.Point(4, 33);
+            this.tabWanted.Name = "tabWanted";
+            this.tabWanted.Size = new System.Drawing.Size(967, 591);
+            this.tabWanted.TabIndex = 4;
+            this.tabWanted.Text = "Розшук";
+            this.tabWanted.UseVisualStyleBackColor = true;
             // 
-            // tabPage11
+            // tabWarrants
             // 
-            this.tabPage11.Location = new System.Drawing.Point(4, 33);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(967, 591);
-            this.tabPage11.TabIndex = 5;
-            this.tabPage11.Text = "Ордер";
-            this.tabPage11.UseVisualStyleBackColor = true;
+            this.tabWarrants.AutoScroll = true;
+            this.tabWarrants.Location = new System.Drawing.Point(4, 33);
+            this.tabWarrants.Name = "tabWarrants";
+            this.tabWarrants.Size = new System.Drawing.Size(967, 591);
+            this.tabWarrants.TabIndex = 5;
+            this.tabWarrants.Text = "Ордер";
+            this.tabWarrants.UseVisualStyleBackColor = true;
             // 
-            // tabPage12
+            // tabCourtCase
             // 
-            this.tabPage12.Location = new System.Drawing.Point(4, 33);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(967, 591);
-            this.tabPage12.TabIndex = 6;
-            this.tabPage12.Text = "Судова справа";
-            this.tabPage12.UseVisualStyleBackColor = true;
+            this.tabCourtCase.Location = new System.Drawing.Point(4, 33);
+            this.tabCourtCase.Name = "tabCourtCase";
+            this.tabCourtCase.Size = new System.Drawing.Size(967, 591);
+            this.tabCourtCase.TabIndex = 6;
+            this.tabCourtCase.Text = "Судова справа";
+            this.tabCourtCase.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -648,6 +680,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Зберегти";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -657,13 +690,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Скасувати";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // txtPhotoPath
-            // 
-            this.txtPhotoPath.Location = new System.Drawing.Point(618, 237);
-            this.txtPhotoPath.Name = "txtPhotoPath";
-            this.txtPhotoPath.Size = new System.Drawing.Size(100, 28);
-            this.txtPhotoPath.TabIndex = 120;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // EditCriminalForm
             // 
@@ -690,17 +717,17 @@
 
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabVictims;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.TabPage tabPage9;
-        private System.Windows.Forms.TabPage tabPage10;
-        private System.Windows.Forms.TabPage tabPage11;
-        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.TabPage tabWitnesses;
+        private System.Windows.Forms.TabPage tabEvidence;
+        private System.Windows.Forms.TabPage tabWanted;
+        private System.Windows.Forms.TabPage tabWarrants;
+        private System.Windows.Forms.TabPage tabCourtCase;
         private System.Windows.Forms.PictureBox pbPhoto;
         private System.Windows.Forms.TextBox txtDistinctiveFeatures;
         private System.Windows.Forms.TextBox txtPhone;
