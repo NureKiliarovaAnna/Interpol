@@ -168,31 +168,31 @@ namespace Interpol.Forms
                         // Створюємо панель для кожного потерпілого
                         Panel victimPanel = new Panel
                         {
-                            Size = new Size(600, 480),
+                            Size = new Size(900, 480), // Збільшуємо ширину панелі
                             Location = new Point(10, yOffset),
                             BorderStyle = BorderStyle.FixedSingle
                         };
 
-                        // Створюємо текстові поля
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimFirstName", "Ім'я: ", reader["first_name"], 10, 10));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimLastName", "Прізвище: ", reader["last_name"], 10, 40));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimBirthDate", "Дата народження: ", reader["birth_date"], 10, 70));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimGender", "Стать: ", reader["gender"], 10, 100));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimBirthLocation", "Місце народження: ", reader["birth_location"], 10, 130));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimResidence", "Місце проживання: ", reader["last_known_residence"], 10, 160));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimNationality", "Національність: ", reader["nationality"], 10, 190));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimStatus", "Статус: ", reader["status"], 10, 220));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimPassport", "Паспорт: ", reader["passport"], 10, 250));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimEmail", "Email: ", reader["email_addr"], 10, 280));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimPhone", "Телефон: ", reader["phone_num"], 10, 310));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimTestimonyDate", "Дата свідчень: ", reader["victim_testimony_date"], 10, 340));
-                        victimPanel.Controls.Add(CreateTextBox("txtVictimInjury", "Ушкодження: ", reader["victim_injury"], 10, 370));
+                        // Додаємо текстові поля з мітками
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimFirstName", "Ім'я: ", reader["first_name"], 10, 10));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimLastName", "Прізвище: ", reader["last_name"], 10, 40));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimBirthDate", "Дата народження: ", reader["birth_date"], 10, 70));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimGender", "Стать: ", reader["gender"], 10, 100));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimBirthLocation", "Місце народження: ", reader["birth_location"], 10, 130));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimResidence", "Місце проживання: ", reader["last_known_residence"], 10, 160));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimNationality", "Національність: ", reader["nationality"], 10, 190));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimStatus", "Статус: ", reader["status"], 10, 220));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimPassport", "Паспорт: ", reader["passport"], 10, 250));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimEmail", "Email: ", reader["email_addr"], 10, 280));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimPhone", "Телефон: ", reader["phone_num"], 10, 310));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimTestimonyDate", "Дата свідчень: ", reader["victim_testimony_date"], 10, 340));
+                        victimPanel.Controls.Add(CreateTextBoxWithLabel("txtVictimInjury", "Ушкодження: ", reader["victim_injury"], 10, 370));
 
                         // Додаємо PictureBox для фото
                         PictureBox pbPhoto = new PictureBox
                         {
-                            Size = new Size(100, 100),
-                            Location = new Point(420, 10),
+                            Size = new Size(200, 200),
+                            Location = new Point(650, 10), // Зміщуємо до правого краю
                             SizeMode = PictureBoxSizeMode.StretchImage,
                             BorderStyle = BorderStyle.FixedSingle
                         };
@@ -215,9 +215,9 @@ namespace Interpol.Forms
 
                             Button btnTestimony = new Button
                             {
-                                Text = "Відкрити свідчення",
-                                Location = new Point(420, 120),
-                                Size = new Size(150, 30)
+                                Text = "Свідчення",
+                                Location = new Point(650, 220), // Зміщуємо до правого краю під фото
+                                Size = new Size(200, 30)
                             };
 
                             btnTestimony.Click += (s, e) =>
@@ -250,6 +250,35 @@ namespace Interpol.Forms
                     connection.Close();
                 }
             }
+        }
+
+        private Control CreateTextBoxWithLabel(string textBoxName, string labelText, object value, int x, int y)
+        {
+            Panel container = new Panel
+            {
+                Location = new Point(x, y),
+                Size = new Size(570, 25) // Розмір контейнера
+            };
+
+            Label label = new Label
+            {
+                Text = labelText,
+                Location = new Point(0, 5),
+                AutoSize = true
+            };
+
+            TextBox textBox = new TextBox
+            {
+                Name = textBoxName,
+                Text = value != DBNull.Value ? value?.ToString() : "",
+                Location = new Point(200, 0),
+                Size = new Size(400, 20)
+            };
+
+            container.Controls.Add(label);
+            container.Controls.Add(textBox);
+
+            return container;
         }
 
         private void LoadWitnesses()
@@ -296,30 +325,30 @@ namespace Interpol.Forms
                         // Створюємо панель для кожного свідка
                         Panel witnessPanel = new Panel
                         {
-                            Size = new Size(600, 480),
+                            Size = new Size(900, 480), // Збільшуємо ширину панелі
                             Location = new Point(10, yOffset),
                             BorderStyle = BorderStyle.FixedSingle
                         };
 
-                        // Створюємо текстові поля
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessFirstName", "Ім'я: ", reader["first_name"], 10, 10));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessLastName", "Прізвище: ", reader["last_name"], 10, 40));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessBirthDate", "Дата народження: ", reader["birth_date"], 10, 70));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessGender", "Стать: ", reader["gender"], 10, 100));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessBirthLocation", "Місце народження: ", reader["birth_location"], 10, 130));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessResidence", "Місце проживання: ", reader["last_known_residence"], 10, 160));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessNationality", "Національність: ", reader["nationality"], 10, 190));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessStatus", "Статус: ", reader["status"], 10, 220));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessPassport", "Паспорт: ", reader["passport"], 10, 250));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessEmail", "Email: ", reader["email_addr"], 10, 280));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessPhone", "Телефон: ", reader["phone_num"], 10, 310));
-                        witnessPanel.Controls.Add(CreateTextBox2("txtWitnessTestimonyDate", "Дата свідчень: ", reader["witness_testimony_date"], 10, 340));
+                        // Додаємо текстові поля з мітками
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessFirstName", "Ім'я: ", reader["first_name"], 10, 10));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessLastName", "Прізвище: ", reader["last_name"], 10, 40));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessBirthDate", "Дата народження: ", reader["birth_date"], 10, 70));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessGender", "Стать: ", reader["gender"], 10, 100));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessBirthLocation", "Місце народження: ", reader["birth_location"], 10, 130));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessResidence", "Місце проживання: ", reader["last_known_residence"], 10, 160));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessNationality", "Національність: ", reader["nationality"], 10, 190));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessStatus", "Статус: ", reader["status"], 10, 220));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessPassport", "Паспорт: ", reader["passport"], 10, 250));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessEmail", "Email: ", reader["email_addr"], 10, 280));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessPhone", "Телефон: ", reader["phone_num"], 10, 310));
+                        witnessPanel.Controls.Add(CreateTextBoxWithLabel("txtWitnessTestimonyDate", "Дата свідчень: ", reader["witness_testimony_date"], 10, 340));
 
                         // Додаємо PictureBox для фото
                         PictureBox pbPhoto = new PictureBox
                         {
-                            Size = new Size(100, 100),
-                            Location = new Point(420, 10),
+                            Size = new Size(200, 200),
+                            Location = new Point(650, 10), // Зміщуємо до правого краю
                             SizeMode = PictureBoxSizeMode.StretchImage,
                             BorderStyle = BorderStyle.FixedSingle
                         };
@@ -342,9 +371,9 @@ namespace Interpol.Forms
 
                             Button btnTestimony = new Button
                             {
-                                Text = "Відкрити свідчення",
-                                Location = new Point(420, 120),
-                                Size = new Size(150, 30)
+                                Text = "Свідчення",
+                                Location = new Point(650, 220), // Зміщуємо до правого краю під фото
+                                Size = new Size(200, 30)
                             };
 
                             btnTestimony.Click += (s, e) =>
@@ -416,19 +445,19 @@ namespace Interpol.Forms
                         // Створюємо панель для кожного доказу
                         Panel evidencePanel = new Panel
                         {
-                            Size = new Size(600, 300),
+                            Size = new Size(900, 300), // Збільшено ширину панелі
                             Location = new Point(10, yOffset),
                             BorderStyle = BorderStyle.FixedSingle
                         };
 
-                        // Створюємо текстові поля
-                        evidencePanel.Controls.Add(CreateTextBox3("txtEvidenceType", "Тип доказу: ", reader["evidence_type"], 10, 10));
-                        evidencePanel.Controls.Add(CreateTextBox3("txtEvidenceDescription", "Опис: ", reader["evidence_description"], 10, 40));
-                        evidencePanel.Controls.Add(CreateTextBox3("txtEvidenceDiscoveryDate", "Дата виявлення: ", reader["evidence_discovery_date"], 10, 70));
-                        evidencePanel.Controls.Add(CreateTextBox3("txtEvidenceLocation", "Місце виявлення: ", reader["evidence_location"], 10, 100));
-                        evidencePanel.Controls.Add(CreateTextBox3("txtEvidenceStorageLocation", "Місце зберігання: ", reader["evidence_storage_location"], 10, 130));
-                        evidencePanel.Controls.Add(CreateTextBox3("txtEvidenceAnalysisResult", "Результат аналізу: ", reader["evidence_analysis_result"], 10, 160));
-                        evidencePanel.Controls.Add(CreateTextBox3("txtEvidenceDateAttachment", "Дата додавання до злочину: ", reader["evidence_date_attachment"], 10, 190));
+                        // Додаємо текстові поля з мітками
+                        evidencePanel.Controls.Add(CreateTextBoxWithLabel("txtEvidenceType", "Тип доказу: ", reader["evidence_type"], 10, 10));
+                        evidencePanel.Controls.Add(CreateTextBoxWithLabel("txtEvidenceDescription", "Опис: ", reader["evidence_description"], 10, 40));
+                        evidencePanel.Controls.Add(CreateTextBoxWithLabel("txtEvidenceDiscoveryDate", "Дата виявлення: ", reader["evidence_discovery_date"], 10, 70));
+                        evidencePanel.Controls.Add(CreateTextBoxWithLabel("txtEvidenceLocation", "Місце виявлення: ", reader["evidence_location"], 10, 100));
+                        evidencePanel.Controls.Add(CreateTextBoxWithLabel("txtEvidenceStorageLocation", "Місце зберігання: ", reader["evidence_storage_location"], 10, 130));
+                        evidencePanel.Controls.Add(CreateTextBoxWithLabel("txtEvidenceAnalysisResult", "Результат аналізу: ", reader["evidence_analysis_result"], 10, 160));
+                        evidencePanel.Controls.Add(CreateTextBoxWithLabel("txtEvidenceDateAttachment", "Дата додавання: ", reader["evidence_date_attachment"], 10, 190));
 
                         // Додаємо панель до вкладки
                         tabEvidence.Controls.Add(evidencePanel);
@@ -481,16 +510,16 @@ namespace Interpol.Forms
                         // Створюємо панель для кожного розшуку
                         Panel wantedPanel = new Panel
                         {
-                            Size = new Size(600, 200),
+                            Size = new Size(900, 200),
                             Location = new Point(10, yOffset),
                             BorderStyle = BorderStyle.FixedSingle
                         };
 
                         // Створюємо текстові поля
-                        wantedPanel.Controls.Add(CreateTextBox4("txtWantedStatusDate", "Дата статусу: ", reader["status_date"], 10, 10));
-                        wantedPanel.Controls.Add(CreateTextBox4("txtWantedCountry", "Країна розшуку: ", reader["status_country"], 10, 40));
-                        wantedPanel.Controls.Add(CreateTextBox4("txtIssuingAuthority", "Орган, що видав розшук: ", reader["issuing_authority"], 10, 70));
-                        wantedPanel.Controls.Add(CreateTextBox4("txtStatusType", "Тип статусу: ", reader["status_type"], 10, 100));
+                        wantedPanel.Controls.Add(CreateTextBox4("txtWantedStatusDate", "Дата статусу: ", reader["status_date"], 20, 10));
+                        wantedPanel.Controls.Add(CreateTextBox4("txtWantedCountry", "Країна розшуку: ", reader["status_country"], 20, 40));
+                        wantedPanel.Controls.Add(CreateTextBox4("txtIssuingAuthority", "Орган видачі: ", reader["issuing_authority"], 20, 70));
+                        wantedPanel.Controls.Add(CreateTextBox4("txtStatusType", "Тип статусу: ", reader["status_type"], 20, 100));
 
                         // Додаємо панель до вкладки
                         tabWanted.Controls.Add(wantedPanel);
@@ -566,15 +595,15 @@ namespace Interpol.Forms
                             // Створюємо панель для кожного ордера
                             Panel warrantPanel = new Panel
                             {
-                                Size = new Size(600, 150),
+                                Size = new Size(900, 150),
                                 Location = new Point(10, yOffset),
                                 BorderStyle = BorderStyle.FixedSingle
                             };
 
                             // Створюємо текстові поля
-                            warrantPanel.Controls.Add(CreateTextBox5("txtWarrantIssueDate", "Дата видачі ордера: ", warrantReader["warrant_issue_date"], 10, 10));
-                            warrantPanel.Controls.Add(CreateTextBox5("txtWarrantCountry", "Країна видачі: ", warrantReader["warrant_country"], 10, 40));
-                            warrantPanel.Controls.Add(CreateTextBox5("txtWarrantType", "Тип ордера: ", warrantReader["warrant_type"], 10, 70));
+                            warrantPanel.Controls.Add(CreateTextBox5("txtWarrantIssueDate", "Дата видачі ордера: ", warrantReader["warrant_issue_date"], 20, 10));
+                            warrantPanel.Controls.Add(CreateTextBox5("txtWarrantCountry", "Країна видачі: ", warrantReader["warrant_country"], 20, 40));
+                            warrantPanel.Controls.Add(CreateTextBox5("txtWarrantType", "Тип ордера: ", warrantReader["warrant_type"], 20, 70));
 
                             // Додаємо панель до вкладки
                             tabWarrants.Controls.Add(warrantPanel);
@@ -632,19 +661,19 @@ namespace Interpol.Forms
                         // Створюємо панель для судової справи
                         Panel courtCasePanel = new Panel
                         {
-                            Size = new Size(600, 350),
+                            Size = new Size(900, 350),
                             Location = new Point(10, 10),
                             BorderStyle = BorderStyle.FixedSingle
                         };
 
                         // Створюємо текстові поля
-                        courtCasePanel.Controls.Add(CreateTextBox6("txtDecisionNumber", "Номер рішення: ", reader["decision_number"], 10, 10));
-                        courtCasePanel.Controls.Add(CreateTextBox6("txtCaseNumber", "Номер справи: ", reader["case_number"], 10, 40));
-                        courtCasePanel.Controls.Add(CreateTextBox6("txtRegistrationDate", "Дата реєстрації: ", reader["registration_date"], 10, 70));
-                        courtCasePanel.Controls.Add(CreateTextBox6("txtHearingDate", "Дата слухання: ", reader["hearing_date"], 10, 100));
-                        courtCasePanel.Controls.Add(CreateTextBox6("txtCourtDecisionForm", "Форма рішення: ", reader["court_decision_form"], 10, 130));
-                        courtCasePanel.Controls.Add(CreateTextBox6("txtCourtHearingForm", "Форма слухання: ", reader["court_hearing_form"], 10, 160));
-                        courtCasePanel.Controls.Add(CreateTextBox6("txtCourtName", "Назва суду: ", reader["court_name"], 10, 190));
+                        courtCasePanel.Controls.Add(CreateTextBox6("txtDecisionNumber", "Номер рішення: ", reader["decision_number"], 20, 20));
+                        courtCasePanel.Controls.Add(CreateTextBox6("txtCaseNumber", "Номер справи: ", reader["case_number"], 20, 50));
+                        courtCasePanel.Controls.Add(CreateTextBox6("txtRegistrationDate", "Дата реєстрації: ", reader["registration_date"], 20, 80));
+                        courtCasePanel.Controls.Add(CreateTextBox6("txtHearingDate", "Дата слухання: ", reader["hearing_date"], 20, 110));
+                        courtCasePanel.Controls.Add(CreateTextBox6("txtCourtDecisionForm", "Форма рішення: ", reader["court_decision_form"], 20, 140));
+                        courtCasePanel.Controls.Add(CreateTextBox6("txtCourtHearingForm", "Форма слухання: ", reader["court_hearing_form"], 20, 170));
+                        courtCasePanel.Controls.Add(CreateTextBox6("txtCourtName", "Назва суду: ", reader["court_name"], 20, 200));
 
                         if (reader["case_decision"] != DBNull.Value)
                         {
@@ -652,8 +681,8 @@ namespace Interpol.Forms
 
                             Button btnCase = new Button
                             {
-                                Text = "Відкрити судову справу",
-                                Location = new Point(10, 260),
+                                Text = "Судова справа",
+                                Location = new Point(10, 230),
                                 Size = new Size(200, 30)
                             };
 
@@ -795,7 +824,7 @@ namespace Interpol.Forms
             {
                 Name = name,
                 Text = value?.ToString(),
-                Location = new Point(x + 150, y),
+                Location = new Point(x + 160, y),
                 Size = new Size(200, 20)
             };
 
@@ -818,7 +847,7 @@ namespace Interpol.Forms
             {
                 Name = name,
                 Text = value?.ToString(),
-                Location = new Point(x + 150, y),
+                Location = new Point(x + 150, y - 10),
                 Size = new Size(200, 20)
             };
 
@@ -852,6 +881,11 @@ namespace Interpol.Forms
             LoadWantedStatus();
             LoadWarrants();
             LoadCourtCase();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

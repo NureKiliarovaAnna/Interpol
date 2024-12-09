@@ -23,8 +23,6 @@ namespace Interpol.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadDataToGrid();
-            cmbCrimeType.Items.AddRange(new string[] { "Кримінальний", "Економічний", "Терористичний" });
-            cmbGender.Items.AddRange(new string[] { "Чоловіча", "Жіноча" });
         }
 
         private void LoadDataToGrid()
@@ -44,6 +42,12 @@ namespace Interpol.Forms
                     dgvCriminals.Columns["person_id"].Visible = false;
                 if (dgvCriminals.Columns["crime_id"] != null)
                     dgvCriminals.Columns["crime_id"].Visible = false;
+                if (dgvCriminals.Columns["criminal_id"] != null)
+                    dgvCriminals.Columns["criminal_id"].Visible = false;
+                if (dgvCriminals.Columns["wanted_status_id"] != null)
+                    dgvCriminals.Columns["wanted_status_id"].Visible = false;
+                if (dgvCriminals.Columns["court_case_id"] != null)
+                    dgvCriminals.Columns["court_case_id"].Visible = false;
             }
         }
 
@@ -75,62 +79,62 @@ namespace Interpol.Forms
                 // Додавання умов для фільтрації
                 if (!string.IsNullOrWhiteSpace(txtFirstName.Text))
                 {
-                    query += " AND first_name = @FirstName";
+                    query += " AND [Ім'я] = @FirstName";
                     parameters.Add(new OleDbParameter("@FirstName", txtFirstName.Text));
                 }
                 if (!string.IsNullOrWhiteSpace(txtLastName.Text))
                 {
-                    query += " AND last_name = @LastName";
+                    query += " AND [Прізвище] = @LastName";
                     parameters.Add(new OleDbParameter("@LastName", txtLastName.Text));
                 }
                 if (!string.IsNullOrWhiteSpace(txtNickname.Text))
                 {
-                    query += " AND criminal_nickname = @Nickname";
+                    query += " AND [Псевдонім] = @Nickname"; // Приклад псевдоніма
                     parameters.Add(new OleDbParameter("@Nickname", txtNickname.Text));
                 }
                 if (cmbGender.SelectedIndex >= 0)
                 {
-                    query += " AND gender = @Gender";
+                    query += " AND [Стать] = @Gender";
                     parameters.Add(new OleDbParameter("@Gender", cmbGender.SelectedItem.ToString()));
                 }
                 if (!string.IsNullOrWhiteSpace(txtResidence.Text))
                 {
-                    query += " AND last_known_residence = @Residence";
+                    query += " AND [Місце проживання] = @Residence";
                     parameters.Add(new OleDbParameter("@Residence", txtResidence.Text));
                 }
                 if (!string.IsNullOrWhiteSpace(txtNationality.Text))
                 {
-                    query += " AND nationality = @Nationality";
+                    query += " AND [Національність] = @Nationality";
                     parameters.Add(new OleDbParameter("@Nationality", txtNationality.Text));
                 }
                 if (cmbCrimeType.SelectedIndex >= 0)
                 {
-                    query += " AND crime_type = @CrimeType";
+                    query += " AND [Тип злочину] = @CrimeType";
                     parameters.Add(new OleDbParameter("@CrimeType", cmbCrimeType.SelectedItem.ToString()));
                 }
                 if (!string.IsNullOrWhiteSpace(txtCrimeLocation.Text))
                 {
-                    query += " AND crime_location = @CrimeLocation";
+                    query += " AND [Місце злочину] = @CrimeLocation";
                     parameters.Add(new OleDbParameter("@CrimeLocation", txtCrimeLocation.Text));
                 }
                 if (!string.IsNullOrWhiteSpace(txtStatusCountry.Text))
                 {
-                    query += " AND status_country = @StatusCountry";
+                    query += " AND [Країна статусу] = @StatusCountry";
                     parameters.Add(new OleDbParameter("@StatusCountry", txtStatusCountry.Text));
                 }
                 if (!string.IsNullOrWhiteSpace(txtCaseNumber.Text))
                 {
-                    query += " AND case_number = @CaseNumber";
+                    query += " AND [Номер справи] = @CaseNumber";
                     parameters.Add(new OleDbParameter("@CaseNumber", txtCaseNumber.Text));
                 }
                 if (dtpBirthDate.Checked)
                 {
-                    query += " AND birth_date = @BirthDate";
+                    query += " AND [Дата народження] = @BirthDate";
                     parameters.Add(new OleDbParameter("@BirthDate", dtpBirthDate.Value.Date));
                 }
                 if (dtpCrimeDate.Checked)
                 {
-                    query += " AND crime_date = @CrimeDate";
+                    query += " AND [Дата злочину] = @CrimeDate";
                     parameters.Add(new OleDbParameter("@CrimeDate", dtpCrimeDate.Value.Date));
                 }
 
