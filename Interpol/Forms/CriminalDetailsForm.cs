@@ -887,5 +887,68 @@ namespace Interpol.Forms
         {
             this.Close();
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Ви впевнені, що хочете видалити цього злочинця та всі пов'язані дані?",
+        "Підтвердження видалення", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteCriminalData();
+            }
+        }
+
+        private void DeleteCriminalData()
+        {
+            string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\ХНУРЕ\База даних\Interpol\Interpol\Interpol.accdb;";
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Видаляємо дані з кожної таблиці по черзі
+                    ExecuteDeleteCommand(connection, "DELETE FROM evidence_crime WHERE crime_id = @CrimeId");
+                    ExecuteDeleteCommand(connection, "DELETE FROM victim WHERE crime_id = @CrimeId");
+                    ExecuteDeleteCommand(connection, "DELETE FROM witness WHERE crime_id = @CrimeId");
+                    ExecuteDeleteCommand(connection, @"
+                DELETE FROM wanted_status 
+                WHERE criminal_crime_id IN 
+                (SELECT criminal_crime_id FROM criminal_crime WHERE crime_id = @CrimeId)");
+                    ExecuteDeleteCommand(connection, @"
+                DELETE FROM international_warrant 
+                WHERE court_case_id IN 
+                (SELECT court_case_id FROM court_case 
+                 WHERE criminal_crime_id IN 
+                 (SELECT criminal_crime_id FROM criminal_crime WHERE crime_id = @CrimeId))");
+                    ExecuteDeleteCommand(connection, @"
+                DELETE FROM court_case 
+                WHERE criminal_crime_id IN 
+                (SELECT criminal_crime_id FROM criminal_crime WHERE crime_id = @CrimeId)");
+                    ExecuteDeleteCommand(connection, "DELETE FROM criminal_crime WHERE crime_id = @CrimeId");
+                    ExecuteDeleteCommand(connection, "DELETE FROM crime WHERE crime_id = @CrimeId");
+                    ExecuteDeleteCommand(connection, "DELETE FROM criminal WHERE person_id = @PersonId");
+                    ExecuteDeleteCommand(connection, "DELETE FROM person WHERE person_id = @PersonId");
+
+                    MessageBox.Show("Злочинець та всі пов'язані дані успішно видалені.");
+                    this.Close(); // Закриваємо форму після видалення
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Помилка видалення даних: " + ex.Message);
+                }
+            }
+        }
+
+        private void ExecuteDeleteCommand(OleDbConnection connection, string query)
+        {
+            using (OleDbCommand command = new OleDbCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@CrimeId", _crimeId);
+                command.Parameters.AddWithValue("@PersonId", _personId);
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

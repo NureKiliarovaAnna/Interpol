@@ -79,6 +79,7 @@
             this.tabCourtCase = new System.Windows.Forms.TabPage();
             this.btnEdit = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabGeneralInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPhoto)).BeginInit();
@@ -574,7 +575,7 @@
             this.tabEvidence.Margin = new System.Windows.Forms.Padding(4);
             this.tabEvidence.Name = "tabEvidence";
             this.tabEvidence.Padding = new System.Windows.Forms.Padding(4);
-            this.tabEvidence.Size = new System.Drawing.Size(1005, 596);
+            this.tabEvidence.Size = new System.Drawing.Size(988, 569);
             this.tabEvidence.TabIndex = 1;
             this.tabEvidence.Text = "Докази";
             // 
@@ -584,7 +585,7 @@
             this.tabWanted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabWanted.Location = new System.Drawing.Point(4, 33);
             this.tabWanted.Name = "tabWanted";
-            this.tabWanted.Size = new System.Drawing.Size(1005, 596);
+            this.tabWanted.Size = new System.Drawing.Size(988, 569);
             this.tabWanted.TabIndex = 4;
             this.tabWanted.Text = "Розшук";
             // 
@@ -594,7 +595,7 @@
             this.tabWarrants.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabWarrants.Location = new System.Drawing.Point(4, 33);
             this.tabWarrants.Name = "tabWarrants";
-            this.tabWarrants.Size = new System.Drawing.Size(1005, 596);
+            this.tabWarrants.Size = new System.Drawing.Size(988, 569);
             this.tabWarrants.TabIndex = 5;
             this.tabWarrants.Text = "Ордер";
             // 
@@ -622,13 +623,24 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(664, 633);
+            this.button2.Location = new System.Drawing.Point(534, 633);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(152, 34);
             this.button2.TabIndex = 2;
             this.button2.Text = "Назад";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(700, 633);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(152, 34);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Видалити";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // CriminalDetailsForm
             // 
@@ -637,6 +649,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1038, 675);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.tabControl);
@@ -706,5 +719,6 @@
         private System.Windows.Forms.TabPage tabCourtCase;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

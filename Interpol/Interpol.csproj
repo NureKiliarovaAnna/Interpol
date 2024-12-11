@@ -107,6 +107,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AddCriminalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddCriminalForm.Designer.cs">
+      <DependentUpon>AddCriminalForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CriminalDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AddCriminalForm.resx">
+      <DependentUpon>AddCriminalForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CriminalDetailsForm.resx">
       <DependentUpon>CriminalDetailsForm.cs</DependentUpon>
     </EmbeddedResource>

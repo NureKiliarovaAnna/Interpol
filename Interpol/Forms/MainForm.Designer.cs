@@ -40,6 +40,9 @@ namespace Interpol.Forms
             this.panelInterpol = new System.Windows.Forms.Panel();
             this.labelInterpol = new System.Windows.Forms.Label();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtNickname = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -74,18 +77,18 @@ namespace Interpol.Forms
             this.interpolDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.interpolDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cmbSortOrder = new System.Windows.Forms.ComboBox();
+            this.cmbSortBy = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panelInterpol.SuspendLayout();
             this.panelMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCriminals)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.interpolDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.interpolDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.interpolDataSetBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -97,20 +100,20 @@ namespace Interpol.Forms
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1100, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1100, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 26);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // helpToolStripMenuItem
@@ -118,7 +121,7 @@ namespace Interpol.Forms
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.проПрограмуToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // проПрограмуToolStripMenuItem
@@ -132,7 +135,7 @@ namespace Interpol.Forms
             this.panelInterpol.BackColor = System.Drawing.Color.Black;
             this.panelInterpol.Controls.Add(this.labelInterpol);
             this.panelInterpol.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInterpol.Location = new System.Drawing.Point(0, 28);
+            this.panelInterpol.Location = new System.Drawing.Point(0, 30);
             this.panelInterpol.Name = "panelInterpol";
             this.panelInterpol.Size = new System.Drawing.Size(1100, 52);
             this.panelInterpol.TabIndex = 1;
@@ -155,10 +158,40 @@ namespace Interpol.Forms
             this.panelMenu.Controls.Add(this.label10);
             this.panelMenu.Controls.Add(this.label9);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMenu.Location = new System.Drawing.Point(0, 80);
+            this.panelMenu.Location = new System.Drawing.Point(0, 82);
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(1100, 46);
             this.panelMenu.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(1018, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(70, 52);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(931, 11);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(60, 24);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Вихід";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(16, 11);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 24);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Головна";
             // 
             // panel1
             // 
@@ -517,36 +550,48 @@ namespace Interpol.Forms
             this.button1.TabIndex = 9;
             this.button1.Text = "Додати";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label9
+            // cmbSortOrder
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 11);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 24);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Головна";
+            this.cmbSortOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSortOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmbSortOrder.FormattingEnabled = true;
+            this.cmbSortOrder.Items.AddRange(new object[] {
+            "За зростанням",
+            "За спаданням"});
+            this.cmbSortOrder.Location = new System.Drawing.Point(964, 135);
+            this.cmbSortOrder.Name = "cmbSortOrder";
+            this.cmbSortOrder.Size = new System.Drawing.Size(124, 32);
+            this.cmbSortOrder.TabIndex = 10;
+            this.cmbSortOrder.SelectedIndexChanged += new System.EventHandler(this.cmbSortOrder_SelectedIndexChanged);
             // 
-            // label10
+            // cmbSortBy
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(931, 11);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(60, 24);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Вихід";
+            this.cmbSortBy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSortBy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmbSortBy.FormattingEnabled = true;
+            this.cmbSortBy.Items.AddRange(new object[] {
+            "Ім\'я",
+            "Прізвище",
+            "Дата народження",
+            "Дата злочину"});
+            this.cmbSortBy.Location = new System.Drawing.Point(827, 135);
+            this.cmbSortBy.Name = "cmbSortBy";
+            this.cmbSortBy.Size = new System.Drawing.Size(131, 32);
+            this.cmbSortBy.TabIndex = 11;
+            this.cmbSortBy.SelectedIndexChanged += new System.EventHandler(this.cmbSortBy_SelectedIndexChanged);
             // 
-            // pictureBox1
+            // label14
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(1018, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 52);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label14.Location = new System.Drawing.Point(774, 139);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(46, 24);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Sort";
             // 
             // MainForm
             // 
@@ -554,6 +599,9 @@ namespace Interpol.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1100, 704);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.cmbSortBy);
+            this.Controls.Add(this.cmbSortOrder);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dgvCriminals);
             this.Controls.Add(this.label17);
@@ -578,13 +626,13 @@ namespace Interpol.Forms
             this.panelInterpol.PerformLayout();
             this.panelMenu.ResumeLayout(false);
             this.panelMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCriminals)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.interpolDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.interpolDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.interpolDataSetBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -637,5 +685,8 @@ namespace Interpol.Forms
         private Label label10;
         private Label label9;
         private PictureBox pictureBox1;
+        private ComboBox cmbSortOrder;
+        private ComboBox cmbSortBy;
+        private Label label14;
     }
 }

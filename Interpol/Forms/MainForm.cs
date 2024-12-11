@@ -138,6 +138,40 @@ namespace Interpol.Forms
                     parameters.Add(new OleDbParameter("@CrimeDate", dtpCrimeDate.Value.Date));
                 }
 
+                // Додавання сортування
+                string sortByColumn = "";
+                if (cmbSortBy.SelectedIndex >= 0)
+                {
+                    switch (cmbSortBy.SelectedItem.ToString())
+                    {
+                        case "Ім'я":
+                            sortByColumn = "[Ім'я]";
+                            break;
+                        case "Прізвище":
+                            sortByColumn = "[Прізвище]";
+                            break;
+                        case "Дата народження":
+                            sortByColumn = "[Дата народження]";
+                            break;
+                        case "Дата злочину":
+                            sortByColumn = "[Дата злочину]";
+                            break;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(sortByColumn))
+                {
+                    query += " ORDER BY " + sortByColumn;
+                    if (cmbSortOrder.SelectedItem?.ToString() == "За спаданням")
+                    {
+                        query += " DESC";
+                    }
+                    else
+                    {
+                        query += " ASC";
+                    }
+                }
+
                 // Виконання запиту
                 OleDbCommand command = new OleDbCommand(query, connection);
                 command.Parameters.AddRange(parameters.ToArray());
@@ -154,6 +188,16 @@ namespace Interpol.Forms
             }
         }
 
+        private void cmbSortBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnSearch_Click(sender, e); // Перезавантажуємо таблицю
+        }
+
+        private void cmbSortOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnSearch_Click(sender, e); // Перезавантажуємо таблицю
+        }
+
         private void dgvCriminals_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -163,6 +207,12 @@ namespace Interpol.Forms
                 CriminalDetailsForm detailsForm = new CriminalDetailsForm(personId, crimeId);
                 detailsForm.ShowDialog();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AddCriminalForm addForm = new AddCriminalForm();
+            addForm.ShowDialog();
         }
     }
 }
