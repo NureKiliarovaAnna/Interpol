@@ -156,19 +156,29 @@ namespace Interpol.Forms
                 {
                     string sourcePath = openFileDialog.FileName;
                     string destinationFileName = Path.GetFileName(sourcePath);
-                    string destinationPath = Path.Combine(Application.StartupPath, @"Sources\Images\", destinationFileName);
+                    string destinationDirectory = Path.Combine(Application.StartupPath, @"Sources\Images\");
 
                     try
                     {
-                        // Перевірка наявності фото
+                        // Створюємо папку, якщо вона не існує
+                        if (!Directory.Exists(destinationDirectory))
+                        {
+                            Directory.CreateDirectory(destinationDirectory);
+                        }
+
+                        string destinationPath = Path.Combine(destinationDirectory, destinationFileName);
+
+                        // Перевірка та копіювання файлу
                         if (!File.Exists(destinationPath))
                         {
                             File.Copy(sourcePath, destinationPath);
                         }
 
-                        // Оновлюємо шлях до фото
+                        // Оновлення шляху та зображення
                         txtPhotoPath.Text = Path.Combine(@"Sources\Images\", destinationFileName);
+                        pbPhoto.Image?.Dispose(); // Звільнення ресурсу, якщо вже є зображення
                         pbPhoto.Image = Image.FromFile(destinationPath);
+                        pbPhoto.ImageLocation = destinationPath;
                     }
                     catch (IOException ioEx)
                     {
@@ -264,7 +274,23 @@ namespace Interpol.Forms
                         updateCommand.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Злочинець успішно збережений.");
+                    string insertCrimeQuery = @"
+INSERT INTO crime 
+(crime_type, crime_location, crime_method, investigations_status) 
+VALUES 
+(@CrimeType, @CrimeLocation, @CrimeMethod, @InvestigationStatus)";
+
+                    using (OleDbCommand crimeCommand = new OleDbCommand(insertCrimeQuery, connection))
+                    {
+                        crimeCommand.Parameters.AddWithValue("@CrimeType", cmbCrimeType.SelectedItem?.ToString() ?? DBNull.Value.ToString());
+                        crimeCommand.Parameters.AddWithValue("@CrimeLocation", txtCrimeLocation.Text);
+                        crimeCommand.Parameters.AddWithValue("@CrimeMethod", txtCrimeMethod.Text);
+                        crimeCommand.Parameters.AddWithValue("@InvestigationStatus", cmbInvestigationStatus.SelectedItem?.ToString() ?? DBNull.Value.ToString());
+
+                        crimeCommand.ExecuteNonQuery();
+                    }
+
+                    //MessageBox.Show("Злочинець успішно збережений.");
                 }
                 catch (Exception ex)
                 {
@@ -399,7 +425,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про потерпілих успішно збережено.");
+                    //MessageBox.Show("Дані про потерпілих успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -540,7 +566,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про свідків успішно збережено.");
+                    //MessageBox.Show("Дані про свідків успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -688,7 +714,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про докази успішно збережено.");
+                    //MessageBox.Show("Дані про докази успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -810,7 +836,7 @@ namespace Interpol.Forms
                         insertCommand.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Дані про розшук успішно збережено.");
+                    //MessageBox.Show("Дані про розшук успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -953,7 +979,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про ордери успішно збережено.");
+                    //MessageBox.Show("Дані про ордери успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -1109,7 +1135,7 @@ WHERE
                         command.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Дані про судову справу успішно збережено.");
+                    //MessageBox.Show("Дані про судову справу успішно збережено.");
                 }
                 catch (Exception ex)
                 {

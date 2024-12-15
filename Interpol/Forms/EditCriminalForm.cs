@@ -1924,7 +1924,7 @@ namespace Interpol.Forms
                         command.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Дані про злочинця та злочин успішно збережено.");
+                    //MessageBox.Show("Дані про злочинця та злочин успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -2072,7 +2072,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про потерпілих успішно збережено.");
+                    //MessageBox.Show("Дані про потерпілих успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -2248,7 +2248,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про свідків успішно збережено.");
+                    //MessageBox.Show("Дані про свідків успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -2391,7 +2391,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про докази успішно збережено.");
+                    //MessageBox.Show("Дані про докази успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -2466,7 +2466,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про розшуки успішно збережено.");
+                    //MessageBox.Show("Дані про розшуки успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -2567,7 +2567,7 @@ namespace Interpol.Forms
                         }
                     }
 
-                    MessageBox.Show("Дані про ордери успішно збережено.");
+                    //MessageBox.Show("Дані про ордери успішно збережено.");
                 }
                 catch (Exception ex)
                 {
@@ -2622,7 +2622,7 @@ namespace Interpol.Forms
                         command.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Дані про судову справу успішно збережено.");
+                    //MessageBox.Show("Дані про судову справу успішно збережено.");
                 }
                 catch (Exception ex)
                 {
