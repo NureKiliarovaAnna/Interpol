@@ -240,7 +240,7 @@
             "Крадіжка",
             "Шахрайство",
             "Контрабанда",
-            "Інше"});
+            "Тероризм"});
             this.cmbCrimeType.Location = new System.Drawing.Point(159, 670);
             this.cmbCrimeType.Name = "cmbCrimeType";
             this.cmbCrimeType.Size = new System.Drawing.Size(404, 32);
@@ -944,7 +944,7 @@
             this.Font = new System.Drawing.Font("Montserrat Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddCriminalForm";
-            this.Text = "AddCriminalForm";
+            this.Text = "Додавання злочинця";
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

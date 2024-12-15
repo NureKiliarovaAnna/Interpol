@@ -34,7 +34,12 @@ namespace Interpol.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.criminalsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.crimesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.warrantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.courtCaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.проПрограмуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelInterpol = new System.Windows.Forms.Panel();
@@ -106,15 +111,57 @@ namespace Interpol.Forms
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // optionsToolStripMenuItem
             // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.criminalsToolStripMenuItem,
+            this.crimesToolStripMenuItem,
+            this.warrantToolStripMenuItem,
+            this.courtCaseToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 26);
-            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
+            this.optionsToolStripMenuItem.Text = "Statistics";
+            // 
+            // criminalsToolStripMenuItem
+            // 
+            this.criminalsToolStripMenuItem.Name = "criminalsToolStripMenuItem";
+            this.criminalsToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.criminalsToolStripMenuItem.Text = "Злочинці";
+            this.criminalsToolStripMenuItem.Click += new System.EventHandler(this.criminalsToolStripMenuItem_Click);
+            // 
+            // crimesToolStripMenuItem
+            // 
+            this.crimesToolStripMenuItem.Name = "crimesToolStripMenuItem";
+            this.crimesToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.crimesToolStripMenuItem.Text = "Злочини";
+            this.crimesToolStripMenuItem.Click += new System.EventHandler(this.crimesToolStripMenuItem_Click);
+            // 
+            // warrantToolStripMenuItem
+            // 
+            this.warrantToolStripMenuItem.Name = "warrantToolStripMenuItem";
+            this.warrantToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.warrantToolStripMenuItem.Text = "Міжнародні ордери";
+            this.warrantToolStripMenuItem.Click += new System.EventHandler(this.warrantToolStripMenuItem_Click);
+            // 
+            // courtCaseToolStripMenuItem
+            // 
+            this.courtCaseToolStripMenuItem.Name = "courtCaseToolStripMenuItem";
+            this.courtCaseToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.courtCaseToolStripMenuItem.Text = "Судові справи";
+            this.courtCaseToolStripMenuItem.Click += new System.EventHandler(this.courtCaseToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -129,6 +176,7 @@ namespace Interpol.Forms
             this.проПрограмуToolStripMenuItem.Name = "проПрограмуToolStripMenuItem";
             this.проПрограмуToolStripMenuItem.Size = new System.Drawing.Size(199, 26);
             this.проПрограмуToolStripMenuItem.Text = "Про програму..";
+            this.проПрограмуToolStripMenuItem.Click += new System.EventHandler(this.проПрограмуToolStripMenuItem_Click);
             // 
             // panelInterpol
             // 
@@ -178,11 +226,15 @@ namespace Interpol.Forms
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
+            this.label10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label10.Location = new System.Drawing.Point(931, 11);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(60, 24);
             this.label10.TabIndex = 1;
             this.label10.Text = "Вихід";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
+            this.label10.MouseEnter += new System.EventHandler(this.label1_MouseEnter);
+            this.label10.MouseLeave += new System.EventHandler(this.label1_MouseLeave);
             // 
             // label9
             // 
@@ -371,6 +423,12 @@ namespace Interpol.Forms
             "Контрабанда",
             "Інше"});
             this.cmbCrimeType.FormattingEnabled = true;
+            this.cmbCrimeType.Items.AddRange(new object[] {
+            "Вбивство",
+            "Крадіжка",
+            "Шахрайство",
+            "Контрабанда",
+            "Тероризм"});
             this.cmbCrimeType.Location = new System.Drawing.Point(155, 276);
             this.cmbCrimeType.Name = "cmbCrimeType";
             this.cmbCrimeType.Size = new System.Drawing.Size(254, 32);
@@ -688,5 +746,10 @@ namespace Interpol.Forms
         private ComboBox cmbSortOrder;
         private ComboBox cmbSortBy;
         private Label label14;
+        private ToolStripMenuItem criminalsToolStripMenuItem;
+        private ToolStripMenuItem crimesToolStripMenuItem;
+        private ToolStripMenuItem warrantToolStripMenuItem;
+        private ToolStripMenuItem courtCaseToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
     }
 }

@@ -80,9 +80,15 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuReports = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuReportCriminalInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.судоваСправаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.доказToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabGeneralInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPhoto)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -97,11 +103,11 @@
             this.tabControl.Controls.Add(this.tabWanted);
             this.tabControl.Controls.Add(this.tabWarrants);
             this.tabControl.Controls.Add(this.tabCourtCase);
-            this.tabControl.Location = new System.Drawing.Point(21, 20);
+            this.tabControl.Location = new System.Drawing.Point(21, 36);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(996, 606);
+            this.tabControl.Size = new System.Drawing.Size(996, 604);
             this.tabControl.TabIndex = 0;
             // 
             // tabGeneralInfo
@@ -153,7 +159,7 @@
             this.tabGeneralInfo.Margin = new System.Windows.Forms.Padding(4);
             this.tabGeneralInfo.Name = "tabGeneralInfo";
             this.tabGeneralInfo.Padding = new System.Windows.Forms.Padding(4);
-            this.tabGeneralInfo.Size = new System.Drawing.Size(988, 569);
+            this.tabGeneralInfo.Size = new System.Drawing.Size(988, 567);
             this.tabGeneralInfo.TabIndex = 0;
             this.tabGeneralInfo.Text = "Загальна інформація";
             // 
@@ -553,7 +559,7 @@
             this.tabVictims.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabVictims.Location = new System.Drawing.Point(4, 33);
             this.tabVictims.Name = "tabVictims";
-            this.tabVictims.Size = new System.Drawing.Size(988, 569);
+            this.tabVictims.Size = new System.Drawing.Size(988, 567);
             this.tabVictims.TabIndex = 3;
             this.tabVictims.Text = "Потерпілі";
             // 
@@ -563,7 +569,7 @@
             this.tabWitnesses.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabWitnesses.Location = new System.Drawing.Point(4, 33);
             this.tabWitnesses.Name = "tabWitnesses";
-            this.tabWitnesses.Size = new System.Drawing.Size(988, 569);
+            this.tabWitnesses.Size = new System.Drawing.Size(988, 567);
             this.tabWitnesses.TabIndex = 2;
             this.tabWitnesses.Text = "Свідки";
             // 
@@ -575,7 +581,7 @@
             this.tabEvidence.Margin = new System.Windows.Forms.Padding(4);
             this.tabEvidence.Name = "tabEvidence";
             this.tabEvidence.Padding = new System.Windows.Forms.Padding(4);
-            this.tabEvidence.Size = new System.Drawing.Size(988, 569);
+            this.tabEvidence.Size = new System.Drawing.Size(988, 567);
             this.tabEvidence.TabIndex = 1;
             this.tabEvidence.Text = "Докази";
             // 
@@ -585,7 +591,7 @@
             this.tabWanted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabWanted.Location = new System.Drawing.Point(4, 33);
             this.tabWanted.Name = "tabWanted";
-            this.tabWanted.Size = new System.Drawing.Size(988, 569);
+            this.tabWanted.Size = new System.Drawing.Size(988, 567);
             this.tabWanted.TabIndex = 4;
             this.tabWanted.Text = "Розшук";
             // 
@@ -595,7 +601,7 @@
             this.tabWarrants.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabWarrants.Location = new System.Drawing.Point(4, 33);
             this.tabWarrants.Name = "tabWarrants";
-            this.tabWarrants.Size = new System.Drawing.Size(988, 569);
+            this.tabWarrants.Size = new System.Drawing.Size(988, 567);
             this.tabWarrants.TabIndex = 5;
             this.tabWarrants.Text = "Ордер";
             // 
@@ -605,14 +611,14 @@
             this.tabCourtCase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabCourtCase.Location = new System.Drawing.Point(4, 33);
             this.tabCourtCase.Name = "tabCourtCase";
-            this.tabCourtCase.Size = new System.Drawing.Size(988, 569);
+            this.tabCourtCase.Size = new System.Drawing.Size(988, 567);
             this.tabCourtCase.TabIndex = 6;
             this.tabCourtCase.Text = "Судова справа";
             // 
             // btnEdit
             // 
             this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEdit.Location = new System.Drawing.Point(865, 633);
+            this.btnEdit.Location = new System.Drawing.Point(865, 651);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(152, 34);
             this.btnEdit.TabIndex = 1;
@@ -623,7 +629,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(534, 633);
+            this.button2.Location = new System.Drawing.Point(534, 651);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(152, 34);
             this.button2.TabIndex = 2;
@@ -634,7 +640,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(700, 633);
+            this.btnDelete.Location = new System.Drawing.Point(700, 651);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(152, 34);
             this.btnDelete.TabIndex = 3;
@@ -642,27 +648,74 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuReports});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1038, 28);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuReports
+            // 
+            this.menuReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuReportCriminalInfo,
+            this.судоваСправаToolStripMenuItem,
+            this.доказToolStripMenuItem});
+            this.menuReports.Name = "menuReports";
+            this.menuReports.Size = new System.Drawing.Size(58, 24);
+            this.menuReports.Text = "Звіти";
+            // 
+            // menuReportCriminalInfo
+            // 
+            this.menuReportCriminalInfo.Name = "menuReportCriminalInfo";
+            this.menuReportCriminalInfo.Size = new System.Drawing.Size(314, 26);
+            this.menuReportCriminalInfo.Text = "Особиста інформація злочинця";
+            this.menuReportCriminalInfo.Click += new System.EventHandler(this.menuReportCriminalInfo_Click);
+            // 
+            // судоваСправаToolStripMenuItem
+            // 
+            this.судоваСправаToolStripMenuItem.Name = "судоваСправаToolStripMenuItem";
+            this.судоваСправаToolStripMenuItem.Size = new System.Drawing.Size(314, 26);
+            this.судоваСправаToolStripMenuItem.Text = "Судова справа";
+            this.судоваСправаToolStripMenuItem.Click += new System.EventHandler(this.судоваСправаToolStripMenuItem_Click);
+            // 
+            // доказToolStripMenuItem
+            // 
+            this.доказToolStripMenuItem.Name = "доказToolStripMenuItem";
+            this.доказToolStripMenuItem.Size = new System.Drawing.Size(314, 26);
+            this.доказToolStripMenuItem.Text = "Доказ";
+            this.доказToolStripMenuItem.Click += new System.EventHandler(this.доказToolStripMenuItem_Click);
+            // 
             // CriminalDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1038, 675);
+            this.ClientSize = new System.Drawing.Size(1038, 695);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Montserrat Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CriminalDetailsForm";
-            this.Text = "Злочинець";
+            this.Text = "Інформація про злочинця";
             this.Load += new System.EventHandler(this.CriminalDetailsForm_Load);
             this.tabControl.ResumeLayout(false);
             this.tabGeneralInfo.ResumeLayout(false);
             this.tabGeneralInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPhoto)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -720,5 +773,10 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuReports;
+        private System.Windows.Forms.ToolStripMenuItem menuReportCriminalInfo;
+        private System.Windows.Forms.ToolStripMenuItem судоваСправаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem доказToolStripMenuItem;
     }
 }

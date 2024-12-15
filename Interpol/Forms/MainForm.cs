@@ -214,5 +214,71 @@ namespace Interpol.Forms
             AddCriminalForm addForm = new AddCriminalForm();
             addForm.ShowDialog();
         }
+
+        private void criminalsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics statistics = new Statistics(1);
+            statistics.ShowDialog();
+        }
+
+        private void crimesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics statistics = new Statistics(2);
+            statistics.ShowDialog();
+        }
+
+        private void warrantToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics statistics = new Statistics(3);
+            statistics.ShowDialog();
+        }
+
+        private void courtCaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics statistics = new Statistics(4);
+            statistics.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void проПрограмуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Програму виконала студентка групи ПЗПІ-23-6 Кілярова А. П.");
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            // Запит на підтвердження виходу
+            DialogResult result = MessageBox.Show(
+                "Ви впевнені, що хочете вийти з акаунту?",
+                "Підтвердження виходу",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            // Якщо користувач підтвердив вихід
+            if (result == DialogResult.Yes)
+            {
+                // Відображаємо форму авторизації
+                LoginForm loginForm = new LoginForm();
+                this.Hide(); // Ховаємо головну форму
+                loginForm.ShowDialog(); // Показуємо форму авторизації як модальне вікно
+                this.Close(); // Закриваємо головну форму після завершення роботи форми авторизації
+            }
+        }
+
+        private void label1_MouseEnter(object sender, EventArgs e)
+        {
+            // Змінюємо курсор при наведенні
+            label1.Cursor = Cursors.Hand; // Використовуємо стандартний курсор "рука"
+        }
+
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            // Повертаємо стандартний курсор
+            label1.Cursor = Cursors.Default;
+        }
     }
 }

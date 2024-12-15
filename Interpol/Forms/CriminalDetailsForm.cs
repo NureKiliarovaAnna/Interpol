@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Access = Microsoft.Office.Interop.Access;
+using System.Drawing.Printing;
 
 namespace Interpol.Forms
 {
@@ -949,6 +951,326 @@ namespace Interpol.Forms
                 command.Parameters.AddWithValue("@PersonId", _personId);
                 command.ExecuteNonQuery();
             }
+        }
+
+        private void menuReportCriminalInfo_Click(object sender, EventArgs e)
+        {
+            GenerateCriminalReportToPDF(_personId);
+        }
+
+        public void GenerateCriminalReportToPDF(string personId)
+        {
+            // Дані для звіту
+            string title = "Звіт про злочинця";
+            string content = "";
+            string filePath = $@"D:\Criminal_{personId}_Report.pdf";
+            string photoPath = "";
+
+            // Отримання даних із бази
+            string query = @"
+        SELECT first_name, last_name, gender, birth_date, birth_location, 
+               last_known_residence, nationality, status, passport, photo, email_addr, phone_num 
+        FROM person 
+        WHERE person_id = @personId";
+            string ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\ХНУРЕ\База даних\Interpol\Interpol\Interpol.accdb;";
+            using (OleDbConnection connection = new OleDbConnection(ConnectionString))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(query, connection);
+                command.Parameters.AddWithValue("@personId", personId);
+                OleDbDataReader reader = command.ExecuteReader();               
+
+                if (reader.Read())
+                {
+                    content = $"Ім'я: {reader["first_name"]}\n" +
+                              $"Прізвище: {reader["last_name"]}\n" +
+                              $"Стать: {reader["gender"]}\n" +
+                              $"Дата народження: {reader["birth_date"]}\n" +
+                              $"Місце народження: {reader["birth_location"]}\n" +
+                              $"Останнє місце проживання: {reader["last_known_residence"]}\n" +
+                              $"Національність: {reader["nationality"]}\n" +
+                              $"Статус: {reader["status"]}\n" +
+                              $"Номер паспорту: {reader["passport"]}\n" +
+                              $"Email: {reader["email_addr"]}\n" +
+                              $"Телефон: {reader["phone_num"]}";
+                    
+                    photoPath = reader["photo"].ToString();
+                }
+            }
+
+            // Генерація PDF
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.DocumentName = "Criminal_Report";
+            printDocument.PrintPage += (sender, e) =>
+            {
+                Graphics g = e.Graphics;
+                Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+                Font contentFont = new Font("Arial", 12);
+                Font dateFont = new Font("Arial", 10, FontStyle.Italic);
+
+                float y = 20;
+
+                // Додаємо заголовок
+                g.DrawString(title, titleFont, Brushes.Black, new PointF(20, y));
+                y += 40;
+
+                // Додаємо дату створення
+                string creationDate = $"Дата створення: {DateTime.Now:dd.MM.yyyy HH:mm}";
+                g.DrawString(creationDate, dateFont, Brushes.Gray, new PointF(20, y));
+                y += 40;
+
+                // Додаємо основний текст
+                g.DrawString(content, contentFont, Brushes.Black, new PointF(20, y));
+                y += 120;
+
+                // Додаємо фото, якщо воно існує
+                if (!string.IsNullOrEmpty(photoPath) && File.Exists(photoPath))
+                {
+                    Image photo = Image.FromFile(photoPath);
+                    Rectangle photoRectangle = new Rectangle(500, 80, 300, 300); // Розмір і позиція фото
+                    g.DrawImage(photo, photoRectangle);
+                    y += 160; // Зміщуємо координати після фото
+                }
+            };
+
+            // Вибір принтера "Microsoft Print to PDF"
+            PrintDialog printDialog = new PrintDialog
+            {
+                Document = printDocument,
+                UseEXDialog = true
+            };
+
+            // Збереження PDF без відображення діалогу
+            printDocument.PrinterSettings = new PrinterSettings
+            {
+                PrinterName = "Microsoft Print to PDF",
+                PrintToFile = true,
+                PrintFileName = $@"D:\Criminal_{personId}_Report.pdf"
+            };
+
+            try
+            {
+                printDocument.Print();
+                MessageBox.Show("Звіт успішно збережено!");
+                OpenPdfInBrowser(filePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка створення PDF: {ex.Message}");
+            }
+        }
+
+        private void OpenPdfInBrowser(string filePath)
+        {
+            try
+            {
+                // Відкриваємо PDF у браузері за замовчуванням
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true // Використовує системне асоціювання для відкриття
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не вдалося відкрити PDF: {ex.Message}");
+            }
+        }
+
+        public void GenerateCourtCaseReport(string crimeId)
+        {
+            string reportPath = $@"D:\CourtCase_{crimeId}_Report.pdf";
+            string title = "Звіт про судову справу";
+            string content = "";
+            string decisionFilePath = "";
+            string ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\ХНУРЕ\База даних\Interpol\Interpol\Interpol.accdb;";
+
+            // Отримання даних із бази
+            string query = @"
+        SELECT decision_number, case_number, registration_date, hearing_date, 
+               court_decision_form, court_hearing_form, court_name, case_decision 
+        FROM court_case 
+        WHERE criminal_crime_id = (SELECT criminal_crime_id FROM criminal_crime WHERE crime_id = @crimeId)";
+
+            using (OleDbConnection connection = new OleDbConnection(ConnectionString))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(query, connection);
+                command.Parameters.AddWithValue("@crimeId", crimeId);
+                OleDbDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    content = $"Номер рішення: {reader["decision_number"]}\n" +
+                              $"Номер справи: {reader["case_number"]}\n" +
+                              $"Дата реєстрації: {reader["registration_date"]}\n" +
+                              $"Дата слухання: {reader["hearing_date"]}\n" +
+                              $"Форма судового рішення: {reader["court_decision_form"]}\n" +
+                              $"Форма судочинства: {reader["court_hearing_form"]}\n" +
+                              $"Назва суду: {reader["court_name"]}\n";
+
+                    // Отримуємо шлях до PDF рішення
+                    if (reader["case_decision"] != DBNull.Value)
+                    {
+                        decisionFilePath = reader["case_decision"].ToString();
+                        //content += $"\nPDF файл судового рішення: {decisionFilePath}";
+                    }
+                }
+            }
+
+            // Генерація PDF-звіту
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.DocumentName = "CourtCase_Report";
+            printDocument.PrintPage += (sender, e) =>
+            {
+                Graphics g = e.Graphics;
+                Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+                Font contentFont = new Font("Arial", 12);
+                Font dateFont = new Font("Arial", 10, FontStyle.Italic);
+
+                float y = 20;
+
+                // Заголовок
+                g.DrawString(title, titleFont, Brushes.Black, new PointF(20, y));
+                y += 40;
+
+                // Дата створення
+                string creationDate = $"Дата створення: {DateTime.Now:dd.MM.yyyy HH:mm}";
+                g.DrawString(creationDate, dateFont, Brushes.Gray, new PointF(20, y));
+                y += 40;
+
+                // Основний текст
+                g.DrawString(content, contentFont, Brushes.Black, new PointF(20, y));
+            };
+
+            printDocument.PrinterSettings = new PrinterSettings
+            {
+                PrinterName = "Microsoft Print to PDF",
+                PrintToFile = true,
+                PrintFileName = reportPath
+            };
+
+            try
+            {
+                printDocument.Print();
+                MessageBox.Show($"Звіт про судову справу збережено: {reportPath}");
+
+                // Якщо є PDF файл судового рішення, пропонуємо відкрити його
+                if (!string.IsNullOrEmpty(decisionFilePath) && File.Exists(decisionFilePath))
+                {
+                    var result = MessageBox.Show("Чи бажаєте відкрити PDF файл судового рішення?", "Відкрити PDF", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        OpenPdfInBrowser(decisionFilePath);
+                    }
+                }
+
+                // Відкрити звіт про судову справу
+                OpenPdfInBrowser(reportPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка створення PDF: {ex.Message}");
+            }
+        }
+
+        private void судоваСправаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateCourtCaseReport(_crimeId);
+        }
+
+        public void GenerateEvidenceReport(string crimeId)
+        {
+            string reportPath = $@"D:\Evidence_{crimeId}_Report.pdf";
+            string title = "Звіт про докази";
+            string content = "";
+            string ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\ХНУРЕ\База даних\Interpol\Interpol\Interpol.accdb;";
+
+            // Отримання даних із бази
+            string query = @"
+        SELECT evidence_type, evidence_description, evidence_discovery_date, 
+               evidence_location, evidence_storage_location, evidence_analysis_result 
+        FROM evidence 
+        INNER JOIN evidence_crime ON evidence.evidence_id = evidence_crime.evidence_id 
+        WHERE evidence_crime.crime_id = @crimeId";
+
+            using (OleDbConnection connection = new OleDbConnection(ConnectionString))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(query, connection);
+                command.Parameters.AddWithValue("@crimeId", crimeId);
+                OleDbDataReader reader = command.ExecuteReader();
+
+                int evidenceCounter = 1;
+                while (reader.Read())
+                {
+                    string evidenceType = reader["evidence_type"].ToString();
+                    string description = reader["evidence_description"].ToString();
+                    string discoveryDate = reader["evidence_discovery_date"].ToString();
+                    string discoveryLocation = reader["evidence_location"].ToString();
+                    string storageLocation = reader["evidence_storage_location"].ToString();
+                    string analysisResult = reader["evidence_analysis_result"].ToString();
+
+                    // Формуємо текст для кожного доказу
+                    content += $"Доказ {evidenceCounter}:\n";
+                    content += $"- Тип доказу: {evidenceType}\n";
+                    content += $"- Опис: {description}\n";
+                    content += $"- Дата знахідки: {discoveryDate}\n";
+                    content += $"- Місце знахідки: {discoveryLocation}\n";
+                    content += $"- Місце зберігання: {storageLocation}\n";
+                    content += $"- Результат аналізу: {analysisResult}\n";
+                    content += "\n"; // Додаємо порожній рядок між доказами
+                    evidenceCounter++;
+                }
+            }
+
+            // Генерація PDF-звіту
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.DocumentName = "Evidence_Report";
+            printDocument.PrintPage += (sender, e) =>
+            {
+                Graphics g = e.Graphics;
+                Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+                Font contentFont = new Font("Arial", 12);
+                Font dateFont = new Font("Arial", 10, FontStyle.Italic);
+
+                float y = 20;
+
+                // Заголовок
+                g.DrawString(title, titleFont, Brushes.Black, new PointF(20, y));
+                y += 40;
+
+                // Дата створення
+                string creationDate = $"Дата створення: {DateTime.Now:dd.MM.yyyy HH:mm}";
+                g.DrawString(creationDate, dateFont, Brushes.Gray, new PointF(20, y));
+                y += 40;
+
+                // Основний текст
+                g.DrawString(content, contentFont, Brushes.Black, new RectangleF(20, y, e.PageBounds.Width - 40, e.PageBounds.Height - 40));
+            };
+
+            printDocument.PrinterSettings = new PrinterSettings
+            {
+                PrinterName = "Microsoft Print to PDF",
+                PrintToFile = true,
+                PrintFileName = reportPath
+            };
+
+            try
+            {
+                printDocument.Print();
+                MessageBox.Show($"Звіт про докази збережено: {reportPath}");
+                OpenPdfInBrowser(reportPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка створення PDF: {ex.Message}");
+            }
+        }
+
+        private void доказToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateEvidenceReport(_crimeId);
         }
     }
 }

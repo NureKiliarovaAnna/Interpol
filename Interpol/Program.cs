@@ -16,7 +16,7 @@ namespace Interpol
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.MainForm());
+            Application.Run(new Forms.LoginForm());
         }
     }
 }
