@@ -1157,7 +1157,6 @@ WHERE
             SaveWarrants();
             SaveWantedStatus();
 
-            // Повідомлення про успішне збереження
             MessageBox.Show("Дані успішно збережено!");
             this.Close();
         }

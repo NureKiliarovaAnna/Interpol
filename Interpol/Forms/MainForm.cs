@@ -63,6 +63,13 @@ namespace Interpol.Forms
             txtCrimeLocation.Text = "";
             txtStatusCountry.Text = "";
             txtCaseNumber.Text = "";
+
+            dtpBirthDateFrom.Checked = false;
+            dtpBirthDateTo.Checked = false;
+            dtpCrimeDateFrom.Checked = false;
+            dtpCrimeDateTo.Checked = false;
+
+            btnSearch_Click(sender, e);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -79,18 +86,18 @@ namespace Interpol.Forms
                 // Додавання умов для фільтрації
                 if (!string.IsNullOrWhiteSpace(txtFirstName.Text))
                 {
-                    query += " AND [Ім'я] = @FirstName";
-                    parameters.Add(new OleDbParameter("@FirstName", txtFirstName.Text));
+                    query += " AND [Ім'я] LIKE @FirstName";
+                    parameters.Add(new OleDbParameter("@FirstName", "%" + txtFirstName.Text + "%"));
                 }
                 if (!string.IsNullOrWhiteSpace(txtLastName.Text))
                 {
-                    query += " AND [Прізвище] = @LastName";
-                    parameters.Add(new OleDbParameter("@LastName", txtLastName.Text));
+                    query += " AND [Прізвище] LIKE @LastName";
+                    parameters.Add(new OleDbParameter("@LastName", "%" + txtLastName.Text + "%"));
                 }
                 if (!string.IsNullOrWhiteSpace(txtNickname.Text))
                 {
-                    query += " AND [Псевдонім] = @Nickname"; // Приклад псевдоніма
-                    parameters.Add(new OleDbParameter("@Nickname", txtNickname.Text));
+                    query += " AND [Псевдонім] LIKE @Nickname";
+                    parameters.Add(new OleDbParameter("@Nickname", "%" + txtNickname.Text + "%"));
                 }
                 if (cmbGender.SelectedIndex >= 0)
                 {
@@ -127,15 +134,28 @@ namespace Interpol.Forms
                     query += " AND [Номер справи] = @CaseNumber";
                     parameters.Add(new OleDbParameter("@CaseNumber", txtCaseNumber.Text));
                 }
-                if (dtpBirthDate.Checked)
+
+                // Діапазон дати народження
+                if (dtpBirthDateFrom.Checked)
                 {
-                    query += " AND [Дата народження] = @BirthDate";
-                    parameters.Add(new OleDbParameter("@BirthDate", dtpBirthDate.Value.Date));
+                    query += " AND [Дата народження] >= @BirthDateFrom";
+                    parameters.Add(new OleDbParameter("@BirthDateFrom", dtpBirthDateFrom.Value.Date));
                 }
-                if (dtpCrimeDate.Checked)
+                if (dtpBirthDateTo.Checked)
                 {
-                    query += " AND [Дата злочину] = @CrimeDate";
-                    parameters.Add(new OleDbParameter("@CrimeDate", dtpCrimeDate.Value.Date));
+                    query += " AND [Дата народження] <= @BirthDateTo";
+                    parameters.Add(new OleDbParameter("@BirthDateTo", dtpBirthDateTo.Value.Date));
+                }
+
+                if (dtpCrimeDateFrom.Checked)
+                {
+                    query += " AND [Дата злочину] >= @CrimeDateFrom";
+                    parameters.Add(new OleDbParameter("@CrimeDateFrom", dtpCrimeDateFrom.Value.Date));
+                }
+                if (dtpCrimeDateTo.Checked)
+                {
+                    query += " AND [Дата злочину] <= @CrimeDateTo";
+                    parameters.Add(new OleDbParameter("@CrimeDateTo", dtpCrimeDateTo.Value.Date));
                 }
 
                 // Додавання сортування
@@ -190,12 +210,12 @@ namespace Interpol.Forms
 
         private void cmbSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnSearch_Click(sender, e); // Перезавантажуємо таблицю
+            btnSearch_Click(sender, e);
         }
 
         private void cmbSortOrder_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnSearch_Click(sender, e); // Перезавантажуємо таблицю
+            btnSearch_Click(sender, e);
         }
 
         private void dgvCriminals_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -251,33 +271,29 @@ namespace Interpol.Forms
 
         private void label10_Click(object sender, EventArgs e)
         {
-            // Запит на підтвердження виходу
             DialogResult result = MessageBox.Show(
                 "Ви впевнені, що хочете вийти з акаунту?",
                 "Підтвердження виходу",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
-            // Якщо користувач підтвердив вихід
             if (result == DialogResult.Yes)
             {
-                // Відображаємо форму авторизації
                 LoginForm loginForm = new LoginForm();
-                this.Hide(); // Ховаємо головну форму
-                loginForm.ShowDialog(); // Показуємо форму авторизації як модальне вікно
-                this.Close(); // Закриваємо головну форму після завершення роботи форми авторизації
+                this.Hide();
+                loginForm.ShowDialog();
+                this.Close();
             }
         }
 
         private void label1_MouseEnter(object sender, EventArgs e)
         {
             // Змінюємо курсор при наведенні
-            label1.Cursor = Cursors.Hand; // Використовуємо стандартний курсор "рука"
+            label1.Cursor = Cursors.Hand;
         }
 
         private void label1_MouseLeave(object sender, EventArgs e)
         {
-            // Повертаємо стандартний курсор
             label1.Cursor = Cursors.Default;
         }
     }
