@@ -18,84 +18,78 @@ namespace Interpol.Forms
         public Statistics(int num)
         {
             InitializeComponent();
-            dataGridView.AutoGenerateColumns = true;
 
+            // Очищення попередніх елементів, якщо є
+            ClearDynamicControls();
+
+            // Відображення статистики відповідно до вибору
             switch (num)
             {
                 case 1:
-                    {
-                        label1.Text = "Статистика про злочинців";
-                        CriminalStatistics();
-                        break;
-                    }
+                    this.Text = "Статистика про злочинців";
+                    CriminalStatistics();
+                    break;
                 case 2:
-                    {
-                        label1.Text = "Статистика про злочини";
-                        CrimeStatistics();
-                        break;
-                    }
+                    this.Text = "Статистика про злочини";
+                    CrimeStatistics();
+                    break;
                 case 3:
-                    {
-                        label1.Text = "Статистика про міжнародні ордери";
-                        WarrantStatistics();
-                        break;
-                    }
+                    this.Text = "Статистика про міжнародні ордери";
+                    WarrantStatistics();
+                    break;
                 case 4:
-                    {
-                        label1.Text = "Статистика про судові справи";
-                        CourtCaseStatistics();
-                        break;
-                    }
-            }
-        }
-
-        private void FillData(string query)
-        {
-            try
-            {
-                using (OleDbConnection connection = new OleDbConnection(ConnectionString))
-                {
-                    connection.Open();
-                    OleDbDataAdapter adapter = new OleDbDataAdapter(query, connection);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView.DataSource = dt;
-
-                    CustomizeDataGridView();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Помилка: " + ex.Message);
+                    this.Text = "Статистика про судові справи";
+                    CourtCaseStatistics();
+                    break;
+                default:
+                    MessageBox.Show("Невідомий тип статистики.");
+                    break;
             }
         }
 
         private void CriminalStatistics()
         {
-            string query = @"
-            SELECT 'Кількість злочинців' AS Метрика, COUNT(*) AS Значення FROM criminal
-            UNION ALL
-            SELECT 'Активне', COUNT(*) FROM crime WHERE investigations_status = 'Активне'
-            UNION ALL
-            SELECT 'Закрите', COUNT(*) FROM crime WHERE investigations_status = 'Закрите'
-            UNION ALL
-            SELECT 'В очікуванні', COUNT(*) FROM crime WHERE investigations_status = 'В очікуванні'
-            UNION ALL
-            SELECT 'Середній вік', AVG(DATEDIFF('yyyy', p.birth_date, DATE())) 
-            FROM person p
-            INNER JOIN criminal c ON p.person_id = c.person_id
-            UNION ALL
-            SELECT p.nationality AS Метрика, COUNT(*) AS Значення 
-            FROM person p
-            INNER JOIN criminal c ON p.person_id = c.person_id
-            GROUP BY p.nationality";
+            // Загальна інформація
+            string generalInfoQuery = @"
+                SELECT 'Кількість злочинців' AS Метрика, COUNT(*) AS Значення 
+                FROM criminal
+                UNION ALL
+                SELECT 'Середній вік', AVG(DATEDIFF('yyyy', p.birth_date, DATE())) 
+                FROM person p
+                INNER JOIN criminal c ON p.person_id = c.person_id";
 
-            FillData(query);
+            CreateAndFillGrid("Загальна інформація", generalInfoQuery);
+
+            // Національність
+            string nationalityQuery = @"
+                SELECT p.nationality AS Національність, COUNT(*) AS Кількість 
+                FROM person p
+                INNER JOIN criminal c ON p.person_id = c.person_id
+                GROUP BY p.nationality";
+
+            CreateAndFillGrid("Національність", nationalityQuery);
+
+            // Статус розслідування
+            string investigationStatusQuery = @"
+                SELECT 'Активне' AS Статус, COUNT(*) AS Кількість 
+                FROM crime 
+                WHERE investigations_status = 'Активне'
+                UNION ALL
+                SELECT 'Закрите', COUNT(*) 
+                FROM crime 
+                WHERE investigations_status = 'Закрите'
+                UNION ALL
+                SELECT 'В очікуванні', COUNT(*) 
+                FROM crime 
+                WHERE investigations_status = 'В очікуванні'";
+
+            CreateAndFillGrid("Статус розслідування", investigationStatusQuery);
         }
 
         private void CrimeStatistics()
         {
-            string query = @"
+            // Загальна інформація про злочини
+            string generalInfoQuery = @"
                 SELECT 'Кількість злочинів' AS Метрика, COUNT(*) AS Значення 
                 FROM crime
                 UNION ALL
@@ -105,77 +99,158 @@ namespace Interpol.Forms
                     FROM crime c
                     LEFT JOIN evidence_crime ec ON c.crime_id = ec.crime_id
                     GROUP BY c.crime_id
-                )
-                UNION ALL
-                SELECT crime_type AS Метрика, COUNT(*) AS Значення 
-                FROM crime 
-                GROUP BY crime_type
-                UNION ALL
-                SELECT crime_location AS Метрика, COUNT(*) AS Значення 
-                FROM crime 
-                GROUP BY crime_location;
-             ";
+                )";
 
-            FillData(query);
+            CreateAndFillGrid("Загальна інформація", generalInfoQuery);
+
+            // Типи злочинів
+            string crimeTypeQuery = @"
+                SELECT crime_type AS Тип, COUNT(*) AS Кількість 
+                FROM crime 
+                GROUP BY crime_type";
+
+            CreateAndFillGrid("Типи злочинів", crimeTypeQuery);
+
+            // Локації злочинів
+            string crimeLocationQuery = @"
+                SELECT crime_location AS Локація, COUNT(*) AS Кількість 
+                FROM crime 
+                GROUP BY crime_location";
+
+            CreateAndFillGrid("Локації злочинів", crimeLocationQuery);
         }
 
         private void WarrantStatistics()
         {
-            string query = @"
-            SELECT 'Кількість ордерів' AS Метрика, COUNT(*) AS Значення FROM international_warrant
-            UNION ALL
-            SELECT warrant_country AS Країна, COUNT(*) AS Кількість FROM international_warrant GROUP BY warrant_country
-            UNION ALL
-            SELECT FORMAT(warrant_issue_date, 'yyyy') AS Рік, COUNT(*) AS Кількість FROM international_warrant GROUP BY FORMAT(warrant_issue_date, 'yyyy')";
+            // Загальна інформація про ордери
+            string generalInfoQuery = @"
+                SELECT 'Кількість ордерів' AS Метрика, COUNT(*) AS Значення 
+                FROM international_warrant";
 
-            FillData(query);
+            CreateAndFillGrid("Загальна інформація", generalInfoQuery);
+
+            // Ордери за країнами
+            string warrantCountryQuery = @"
+                SELECT warrant_country AS Країна, COUNT(*) AS Кількість 
+                FROM international_warrant 
+                GROUP BY warrant_country";
+
+            CreateAndFillGrid("Ордери за країнами", warrantCountryQuery);
+
+            // Ордери за роками
+            string warrantYearQuery = @"
+                SELECT FORMAT(warrant_issue_date, 'yyyy') AS Рік, COUNT(*) AS Кількість 
+                FROM international_warrant 
+                GROUP BY FORMAT(warrant_issue_date, 'yyyy')";
+
+            CreateAndFillGrid("Ордери за роками", warrantYearQuery);
         }
 
         private void CourtCaseStatistics()
         {
-            string query = @"
-            SELECT 'Кількість судових справ' AS Метрика, COUNT(*) AS Значення FROM court_case
-            UNION ALL
-            SELECT court_name AS Суд, COUNT(*) AS Кількість FROM court_case GROUP BY court_name
-            UNION ALL
-            SELECT FORMAT(hearing_date, 'yyyy') AS Рік, COUNT(*) AS Кількість FROM court_case GROUP BY FORMAT(hearing_date, 'yyyy')";
+            // Загальна інформація про судові справи
+            string generalInfoQuery = @"
+                SELECT 'Кількість судових справ' AS Метрика, COUNT(*) AS Значення 
+                FROM court_case";
 
-            FillData(query);
+            CreateAndFillGrid("Загальна інформація", generalInfoQuery);
+
+            // Судові справи за судами
+            string courtNameQuery = @"
+                SELECT court_name AS Суд, COUNT(*) AS Кількість 
+                FROM court_case 
+                GROUP BY court_name";
+
+            CreateAndFillGrid("Судові справи за судами", courtNameQuery);
+
+            // Судові справи за роками
+            string hearingYearQuery = @"
+                SELECT FORMAT(hearing_date, 'yyyy') AS Рік, COUNT(*) AS Кількість 
+                FROM court_case 
+                GROUP BY FORMAT(hearing_date, 'yyyy')";
+
+            CreateAndFillGrid("Судові справи за роками", hearingYearQuery);
         }
 
-        private void CustomizeDataGridView()
+        private void CreateAndFillGrid(string title, string query)
         {
-            // Встановити стилі для DataGridView
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Montserrat", 12, FontStyle.Bold);
-            dataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.DefaultCellStyle.Font = new Font("Montserrat", 10);
-            dataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-            // Налаштувати колонки
-            if (dataGridView.Columns.Count > 0)
+            // Динамічно створюємо заголовок
+            Label titleLabel = new Label
             {
-                dataGridView.Columns[0].HeaderText = "Метрика";
-                dataGridView.Columns[0].Width = 300; // Ширина колонки
-                dataGridView.Columns[1].HeaderText = "Значення";
-                dataGridView.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dataGridView.Columns[1].Width = 200;
+                Text = title,
+                Font = new Font("Montserrat", 14, FontStyle.Bold),
+                ForeColor = Color.White,
+                AutoSize = true,
+                Padding = new Padding(5),
+            };
+            titleLabel.Top = CalculateNextControlTop();
+            titleLabel.Left = 10;
+            this.Controls.Add(titleLabel);
+
+            // Динамічно створюємо DataGridView
+            DataGridView gridView = new DataGridView
+            {
+                Width = this.ClientSize.Width - 20,
+                Height = 200,
+                Top = titleLabel.Bottom + 10,
+                Left = 10,
+                AutoGenerateColumns = true,
+                ColumnHeadersHeight = 50
+            };
+            this.Controls.Add(gridView);
+
+            // Заповнюємо DataGridView даними
+            try
+            {
+                using (OleDbConnection connection = new OleDbConnection(ConnectionString))
+                {
+                    connection.Open();
+                    OleDbDataAdapter adapter = new OleDbDataAdapter(query, connection);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    gridView.DataSource = dt;
+
+                    CustomizeDataGridView(gridView);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Помилка: " + ex.Message);
+            }
+        }
 
-            // Заборонити редагування таблиці
-            dataGridView.ReadOnly = true;
+        private void ClearDynamicControls()
+        {
+            // Видаляємо всі динамічно створені елементи
+            var controlsToRemove = this.Controls.OfType<Control>().Where(c => !(c is MenuStrip));
+            foreach (var control in controlsToRemove)
+            {
+                this.Controls.Remove(control);
+            }
+        }
 
-            // Вимкнути можливість додавання нових рядків (останній порожній рядок)
-            dataGridView.AllowUserToAddRows = false;
+        private int CalculateNextControlTop()
+        {
+            // Визначаємо наступну позицію для верхнього краю нового елемента
+            if (this.Controls.Count == 0) return 10;
+            var lastControl = this.Controls.Cast<Control>().OrderByDescending(c => c.Bottom).FirstOrDefault();
+            return lastControl == null ? 10 : lastControl.Bottom + 20;
+        }
 
-            // Автоматичне коригування висоти рядків
-            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
-            dataGridView.DefaultCellStyle.BackColor = Color.White;
-            dataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkBlue;
-            dataGridView.DefaultCellStyle.SelectionForeColor = Color.White;
-
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        private void CustomizeDataGridView(DataGridView gridView)
+        {
+            gridView.ColumnHeadersDefaultCellStyle.Font = new Font("Montserrat", 12, FontStyle.Bold);
+            gridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            gridView.DefaultCellStyle.Font = new Font("Montserrat", 10);
+            gridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            gridView.ReadOnly = true;
+            gridView.AllowUserToAddRows = false;
+            gridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            gridView.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+            gridView.DefaultCellStyle.BackColor = Color.White;
+            gridView.DefaultCellStyle.SelectionBackColor = Color.DarkBlue;
+            gridView.DefaultCellStyle.SelectionForeColor = Color.White;
+            gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }
